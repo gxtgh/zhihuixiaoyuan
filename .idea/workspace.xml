@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b7828a2-5085-432b-84c0-53cb1b5f1727" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/zhihuixiaoyuan/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/zhihuixiaoyuan/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhihuixiaoyuan/text" beforeDir="false" afterPath="$PROJECT_DIR$/zhihuixiaoyuan/text" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhihuixiaoyuan/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhihuixiaoyuan/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhihuixiaoyuan/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhihuixiaoyuan/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhihuixiaoyuan/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhihuixiaoyuan/.idea/zhihuixiaoyuan.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhihuixiaoyuan/text" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,15 +21,22 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/zhihuixiaoyuan/text">
+        <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="9" selection-start-column="9" selection-end-column="9" />
+            <state relative-caret-position="105">
+              <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -31,6 +45,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/zhihuixiaoyuan/text" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
@@ -61,11 +76,6 @@
               <item name="wisdomSchool" type="b2602c69:ProjectViewProjectNode" />
               <item name="wisdomSchool" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="wisdomSchool" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wisdomSchool" type="462c0819:PsiDirectoryNode" />
-              <item name="zhihuixiaoyuan" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -74,6 +84,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="false" />
     <property name="NewWatcherDialog.advanced.open" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -109,15 +120,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1573235749112</updated>
-      <workItem from="1573235751544" duration="19000" />
+      <workItem from="1573235751544" duration="153000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19000" />
+    <option name="totallyTimeSpent" value="153000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="797" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
@@ -148,7 +159,14 @@
     <entry file="file://$PROJECT_DIR$/zhihuixiaoyuan/text">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="9" selection-start-column="9" selection-end-column="9" />
+          <caret column="9" lean-forward="true" selection-start-column="9" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
         </state>
       </provider>
     </entry>
