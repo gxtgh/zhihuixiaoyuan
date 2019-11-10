@@ -1,7 +1,7 @@
 <template>
   <div :class="classObj" class="app-wrapper">
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <sidebar class="sidebar-container" />
+    <!--<sidebar class="sidebar-container" />-->
     <div :class="{hasTagsView:needTagsView}" class="main-container">
       <div :class="{'fixed-header':fixedHeader}" class="headerStyle">
         <navbar />
@@ -19,10 +19,10 @@
                       placement="bottom"
                       width="400"
                       trigger="click">
-                <el-table :data="collectionData" :show-header="false">
+                <el-table :data="collection" :show-header="false">
                   <el-table-column width="45" property="date">
                     <template slot-scope="scope">
-                      <i class="el-icon-star-on color-red font-size-25"></i>
+                      <i class="el-icon-star-on color-red font-size-25" @click="changeCollection(scope.row)"></i>
                     </template>
                   </el-table-column>
                   <el-table-column property="title" class="collect-item-text"></el-table-column>
@@ -76,7 +76,8 @@ export default {
       device: state => state.app.device,
       showSettings: state => state.settings.showSettings,
       needTagsView: state => state.settings.tagsView,
-      fixedHeader: state => state.settings.fixedHeader
+      fixedHeader: state => state.settings.fixedHeader,
+      collection: state => state.user.collection,
     }),
     classObj() {
       return {
@@ -90,6 +91,10 @@ export default {
   methods: {
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
+    },
+    //收藏切换
+    changeCollection(param){
+      this.$store.commit("user/POP_COLLECTION",param);
     }
   }
 }
@@ -110,6 +115,9 @@ export default {
       top: 0;
     }
     /*.hasTagsView{margin:0 !important;}*/
+  }
+  .main-container{
+    margin:0 !important;
   }
   .headerStyle{
     border:1px solid #cccccc;

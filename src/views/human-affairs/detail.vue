@@ -4,16 +4,16 @@
             <el-col :span="16">
                 <el-card class="box-card card-1">
                     <div slot="header" class="clearfix ">
-                        <span class="title">马小云</span>
+                        <span class="title">刘雨</span>
                     </div>
                    <el-row class="infoList">
                        <el-col :span="12">教工号：2019221562153</el-col>
                        <el-col :span="12">性别：男</el-col>
                        <el-col :span="12">联系方式：136732842773</el-col>
-                       <el-col :span="12">生日：1964年9月1日</el-col>
+                       <el-col :span="12">生日：1975年9月1日</el-col>
                        <el-col :span="12">证件号：44087664337897862345</el-col>
                        <el-col :span="12">出生地：广东深圳</el-col>
-                       <el-col :span="12">入职时间：2016年1月1日</el-col>
+                       <el-col :span="12">入职时间：2000年9月15日</el-col>
                    </el-row>
                     <el-button-group>
                         <el-button type="primary" >个人履历</el-button>
@@ -35,7 +35,7 @@
                         <el-col :span="24">
                             <h4>教育背景</h4>
                             <ul class="list">
-                                <li>河北大学 学士学位</li>
+                                <li>北京大学 学士学位</li>
                                 <li>中共中央党校 法学硕士</li>
                                 <li>北京大学研究生院国际政治学院 博士学位</li>
                             </ul>
@@ -52,8 +52,6 @@
                         <el-col :span="24">
                             <h4>主要著作</h4>
                             <ul class="list">
-                                <li>《本土化执行力模式》《GF06：组织执行力6项实务》《理念方太》《变革领导》</li>
-                                <li>《中国企业前沿问题报告》、《中国经济前沿问题报告》、《名牌竞争战略》《矛攻还是盾守》、</li>
                                 <li>《经营大失败》、《名牌竞争战略》、《华立突破》、《温州资本》、《巅峰执行》、</li>
                                 <li>《工作就是责任》、《我是职业人：职业人10项行为准则》</li>
                             </ul>
@@ -67,19 +65,19 @@
                         <span class="title">职业生涯</span>
                     </div>
                     <el-timeline class="tileLineBox">
-                        <el-timeline-item timestamp="2016年4月1日" placement="top" color="#73c7fe">
+                        <el-timeline-item timestamp="2008年6日7日" placement="top" color="#73c7fe">
                             <el-card>
                                 <div class="label-item">
                                     <h4>变动信息</h4>
-                                    <p>停薪，校内职位保留</p>
+                                    <p>教导主任</p>
                                 </div>
                                 <div class="label-item">
                                     <h4>原因</h4>
-                                    <p>出国进修</p>
+                                    <p>变现突出对校方作出巨大贡献</p>
                                 </div>
                             </el-card>
                         </el-timeline-item>
-                        <el-timeline-item timestamp="2016年4月1日" placement="top">
+                        <el-timeline-item timestamp="2003年1月1日" placement="top">
                             <el-card>
                                 <h4>变动信息</h4>
                                 <p>校内调动</p>
@@ -87,7 +85,7 @@
                                 <p>变现突出对校方作出巨大贡献</p>
                             </el-card>
                         </el-timeline-item>
-                        <el-timeline-item timestamp="2016年4月1日" placement="top">
+                        <el-timeline-item timestamp="2000年12月15日" placement="top">
                             <el-card>
                                 <h4>变动信息</h4>
                                 <p>转正，教职工编织</p>
@@ -95,7 +93,7 @@
                                 <p>试用期合格，转正</p>
                             </el-card>
                         </el-timeline-item>
-                        <el-timeline-item timestamp="2016年4月1日" placement="top">
+                        <el-timeline-item timestamp="2000年9月15日" placement="top">
                             <el-card>
                                 <h4>变动信息</h4>
                                 <p>入职</p>
@@ -103,9 +101,9 @@
                                 <p>聘用</p>
                             </el-card>
                         </el-timeline-item>
-                        <el-timeline-item timestamp="2016年4月1日" placement="top">
+                        <el-timeline-item timestamp="1998年9月15日" placement="top">
                             <el-card>
-                                <p>毕业于清华大学</p>
+                                <p>毕业于北京大学</p>
                             </el-card>
                         </el-timeline-item>
                     </el-timeline>

@@ -3,8 +3,7 @@
         <div class="board-column-header">
             {{ headerText }}
         </div>
-        <div v-for="(element,i) in list" :key="element.id" class="board-item" :class="{'actived':currentData == element,'empty':!element.name}" @click="clickItem(element)">
-            <!--{{ i+1 +" "+( element.name?element.name:"空") }} <i class=" el-icon-circle-check font-size-20" v-if="currentData == element"></i>-->
+        <div v-for="(element,i) in list" :key="element.id" class="board-item" :class="{'empty':!element.name}">
             <div class="left">{{i+1+". "}}</div>
             <div class="right info">
                 <p>{{ element.account }}</p>
@@ -34,12 +33,6 @@ export default {
                 return []
             }
         },
-        dialogStatus:{
-            type: Boolean,
-            default(){
-                return false
-            }
-        }
     },
     data(){
         return{
@@ -47,17 +40,15 @@ export default {
         }
     },
     watch: {
-        dialogStatus(newVal){
-            if(!newVal) this.currentData = '';
-        }
+
     },
     methods:{
-        clickItem(params){
-            if(params.name ==""){
-                this.currentData = params;
-                this.$emit("parentEvent",params);
-            }
-        }
+        // clickItem(params){
+        //     if(params.name ==""){
+        //         this.currentData = params;
+        //         this.$emit("parentEvent",params);
+        //     }
+        // }
     }
 }
 </script>
@@ -117,8 +108,8 @@ export default {
             box-sizing: border-box;
             box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.2);
             display: flex;
-            /*justify-content: space-between;*/
-            /*align-items: center;*/
+            justify-content: space-between;
+            align-items: center;
             &.actived{
                 border:1px solid #4A9FF9;
                 color: #4A9FF9;

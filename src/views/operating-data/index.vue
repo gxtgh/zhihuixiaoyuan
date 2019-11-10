@@ -11,7 +11,7 @@
                     <div id="chart1" ></div>
                     <el-row class="chart1-info">
                         <el-col :span="24" class="show-total">
-                            <i class="el-icon-picture"></i>
+                            <i class="el-icon-user-solid"></i>
                             <span>今日总人数: 22235</span>
                         </el-col>
                         <el-col :span="6" class="show-item">
@@ -103,6 +103,8 @@
     import echarts from 'echarts'
     require('echarts/theme/macarons'); // echarts theme
     // import resize from './mixins/resize'
+
+    var colorList = ['#57a2d7',"#8adce4","#fada73","#f3a287","#d26cad","#e1bfee","#817ce3","#96bfff"]; //echarts color
     export default {
         name: "operatingIndex",
         data(){
@@ -173,11 +175,20 @@
                                     show: false
                                 }
                             },
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:function (params) {
+                                        return colorList[params.dataIndex];
+                                    }
+                                }
+                            },
                             data: [
-                                { value: 8899, name: '学生访问量' },
-                                { value: 65, name: '团委访问量' },
-                                { value: 2366, name: '教师访问量' },
-                                { value: 123, name: '人事访问量' }
+                                { value: 8899, name: '学生访问量'},
+                                { value: 65, name: '团委访问量'},
+                                { value: 2366, name: '教师访问量'},
+                                { value: 123, name: '人事访问量'},
+
                             ],
                             animationEasing: 'cubicInOut',
                             animationDuration: 2600
@@ -191,7 +202,7 @@
                 this.chart2.setOption({
                     tooltip: {
                         trigger: 'item',
-                        formatter: '{a} <br/>{b} : {c} ({d}%)'
+                        formatter: '{a}<br/>{b}'
                     },
                     // legend: {
                     //     left: 'center',
@@ -206,13 +217,25 @@
                             radius : [30, 110],
                             center : ['50%', '50%'],
                             roseType : 'area',
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:function (params) {
+                                        return colorList[params.dataIndex];
+                                    }
+                                }
+                            },
+                            label:{
+                                color:"#000000",
+                                fontSize:16
+                            },
                             data:[
                                 {value:50, name:'谷歌 50% （14.1.0)'},
-                                {value:10, name:'猎豹 10% (11.2.0)'},
-                                {value:5, name:'QQ 5%'},
-                                {value:5, name:'IE 5%'},
-                                {value:20, name:'火狐 20%'},
-                                {value:10, name:'其他 10%'}
+                                {value:10, name:'猎豹 10% (6.04.1)'},
+                                {value:5, name:'QQ 5% (11.2.0)'},
+                                {value:5, name:'IE 5% (11.2.0)'},
+                                {value:20, name:'火狐 20% (11.2.0)'},
+                                {value:10, name:'其他 10% (11.2.0)'}
                             ]
                         }
                     ]
@@ -224,13 +247,8 @@
                 this.chart3.setOption({
                     tooltip: {
                         trigger: 'item',
-                        formatter: '{a} <br/>{b} : {c} ({d}%)'
+                        formatter: '{a} <br/>{b})'
                     },
-                    // legend: {
-                    //     left: 'center',
-                    //     bottom: '10',
-                    //     data: ['Industries', 'Technology', 'Forex', 'Gold', 'Forecasts']
-                    // },
                     series: [
                         {
                             name: '终端设备统计',
@@ -238,11 +256,23 @@
                             radius : '65%',
                             center: ['50%', '50%'],
                             selectedMode: 'single',
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:function (params) {
+                                        return colorList[params.dataIndex];
+                                    }
+                                }
+                            },
+                            label:{
+                                color:"#000000",
+                                fontSize:16
+                            },
                             data: [
-                                { value: 60, name: 'PC端' },
-                                { value: 15, name: 'ipad' },
-                                { value: 15, name: '手机端' },
-                                { value: 10, name: '其他' }
+                                { value: 60, name: 'PC端 60%' },
+                                { value: 15, name: 'ipad 15%' },
+                                { value: 15, name: '手机端 15%' },
+                                { value: 10, name: '其他 10%' }
                             ],
                             animationEasing: 'cubicInOut',
                             animationDuration: 2600
@@ -302,23 +332,47 @@
                         {
                             name:'主页停留时间',
                             type:'bar',
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:colorList[0]
+                                }
+                            },
                             data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
                         },
                         {
                             name:'个人中心停留时间',
                             type:'bar',
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:colorList[1]
+                                }
+                            },
                             data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
                         },
                         {
                             name:'主页点击数',
                             type:'line',
                             yAxisIndex: 1,
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:colorList[2]
+                                }
+                            },
                             data:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
                         },
                         {
                             name:'个人中心点击数',
                             type:'line',
                             yAxisIndex: 1,
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:colorList[3]
+                                }
+                            },
                             data:[2.0, 3, 5, 4.5, 7, 15, 20.3,15, 23.0, 13, 5, 8]
                         }
                     ]
@@ -338,7 +392,6 @@
                             type:'pie',
                             selectedMode: 'single',
                             radius: [0, '30%'],
-
                             label: {
                                 normal: {
                                     position: 'inner'
@@ -347,6 +400,14 @@
                             labelLine: {
                                 normal: {
                                     show: false
+                                }
+                            },
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:function (params) {
+                                        return colorList[params.dataIndex];
+                                    }
                                 }
                             },
                             data:[
@@ -400,6 +461,14 @@
                                             padding: [2, 4],
                                             borderRadius: 2
                                         }
+                                    }
+                                }
+                            },
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:function (params) {
+                                        return colorList[params.dataIndex];
                                     }
                                 }
                             },

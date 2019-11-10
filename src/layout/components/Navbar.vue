@@ -17,11 +17,11 @@
         <!--<el-tooltip content="Global Size" effect="dark" placement="bottom">-->
           <!--<size-select id="size-select" class="right-menu-item hover-effect" />-->
         <!--</el-tooltip>-->
-        <span class="avatar-wrapper">
-         <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar1" width="50">
-          <span class="accountName">张小明同学</span>
-        </span>
-        <a href="javascript:void(0)"  @click="logout">退出</a>
+        <router-link to="/transaction" class="avatar-wrapper">
+          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar1" width="50">
+          <span class="accountName">张志杰</span>
+        </router-link>
+        <span class="pointer"  @click="logout">退出</span>
       </template>
 
       <!--<el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">-->
@@ -78,11 +78,11 @@ export default {
   },
   methods: {
     toggleSideBar() {
-      this.$store.dispatch('app/toggleSideBar')
+      this.$store.dispatch('app/toggleSideBar');
     },
     async logout() {
-      await this.$store.dispatch('user/logout')
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      await this.$store.dispatch('user/logout');
+      this.$router.push(`/login?redirect=${this.$route.fullPath}`);
     }
   }
 }

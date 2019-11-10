@@ -5,11 +5,26 @@
                 <div slot="header" class="clearfix">
                     <span class="position-item">
                         <span>楼栋</span>
-                        <el-select class="building" v-model="formInline.build" placeholder="请选择宿舍楼栋"></el-select>
+                        <el-select class="building" v-model="formInline.build" placeholder="请选择宿舍楼栋">
+                            <el-option label="C1栋" value="c1" />
+                            <el-option label="C2栋" value="c2" />
+                            <el-option label="C3栋" value="c3" />
+                            <el-option label="C4栋" value="c4" />
+                        </el-select>
                     </span>
                     <span class="position-item">
                         <span>楼层</span>
-                        <el-select class="floor" v-model="formInline.floor" placeholder="请选择楼层"></el-select>
+                        <el-select class="floor" v-model="formInline.floor" placeholder="请选择楼层">
+                             <el-option label="1F" value="1f" />
+                              <el-option label="2F" value="2f" />
+                              <el-option label="3F" value="3f" />
+                              <el-option label="4F" value="4f" />
+                              <el-option label="5F" value="5f" />
+                              <el-option label="6F" value="6f" />
+                              <el-option label="7F" value="7f" />
+                              <el-option label="8F" value="8f" />
+                              <el-option label="9F" value="9f" />
+                        </el-select>
                     </span>
                     <span class="position-item">
                         <span>房间号</span>
@@ -62,7 +77,7 @@
             <div class="tips">请到宿管员办理相关手续</div>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="dialogVisible = false" >确 定</el-button>
+                <el-button type="primary" @click="confirmSelect" >确 定</el-button>
             </span>
         </el-dialog>
     </div>
@@ -77,6 +92,7 @@
         },
         data(){
             return{
+                status:false,//状态：false：未选择 true：选择
                 formInline:{
                     build:'',
                     floor:'',
@@ -93,52 +109,52 @@
                     {
                         room:"701",
                         list:[
-                            { name: 'Mission', id: 1 },
-                            { name: 'Mission', id: 2 },
-                            { name: 'Mission', id: 3 },
-                            { name: 'Mission', id: 4 }
+                            { name: '张林海', id: 1 , account:'2019565001'},
+                            { name: '', id: 2 , account:''},
+                            { name: '王雨陆', id: 3 , account:'2019565003'},
+                            { name: '刘羽', id: 4 , account:'2019565004'}
                         ]
                     },
                     {
                         room:"702",
                         list:[
-                            { name: 'Mission', id: 5 },
-                            { name: '', id: 6 },
-                            { name: 'Mission', id: 7 }
+                            { name: '韩静海', id: 5 ,account:'2019565005'},
+                            { name: '', id: 6 ,account:''},
+                            { name: '吴柏羽', id: 7,account:'2019565007' }
                         ]
                     },
                     {
                         room:"703",
                         list:[
-                            { name: 'Mission', id: 8 },
-                            { name: 'Mission', id: 9 },
-                            { name: '', id: 10 },
-                            { name: 'Mission', id: 11 }
+                            { name: '刘雨', id: 8 ,account:'2019565008'},
+                            { name: '', id: 9 ,account:''},
+                            { name: '', id: 10 ,account:''},
+                            { name: '柳雨生', id: 11 ,account:'20195650011'}
                         ],
                     },
                     {
                         room:"704",
                         list: [
-                            { name: 'Mission', id: 12 },
-                            { name: 'Mission', id: 13 },
-                            { name: 'Mission', id: 14 }
+                            { name: '', id: 12 ,account:''},
+                            { name: '林尚则', id: 13 ,account:'20195650013'},
+                            { name: '林灵生', id: 14 }
                         ],
                     },
                     {
                         room:"705",
                         list:[
-                            { name: 'Mission', id: 15 },
-                            { name: '', id: 16 },
-                            { name: 'Mission', id: 17 },
-                            { name: 'Mission', id: 18 }
+                            { name: '柳升莫', id: 15 ,account:'20195650014'},
+                            { name: '王月品', id: 16 ,account:'20195650015'},
+                            { name: '', id: 17 ,account:''},
+                            { name: '李龚', id: 18 }
                         ],
                     },
                     {
                         room:"706",
                         list: [
-                            { name: 'Mission', id: 19 },
-                            { name: 'Mission', id: 20 },
-                            { name: 'Mission', id: 21 }
+                            { name: '', id: 19 ,account:''},
+                            { name: '张增杰', id: 20 ,account:'20195650018'},
+                            { name: '林家方', id: 21 ,account:'20195650019'}
                         ],
                     },
 
@@ -157,7 +173,8 @@
                     //     { name: 'Mission', id: 26 }
                     // ]
                 ],
-                dialogVisible:false
+                dialogVisible:false,
+                roomInfo:{},//选择的宿舍
             }
         },
         methods:{
@@ -169,11 +186,29 @@
             checkedSetting(val){
                 console.log(val);
             },
+            //点击宿舍
             eventClick(params){
+                this.roomInfo = params;
                 this.dialogVisible = true;
             },
+            //关闭选择宿舍
             dialogClose(){
+                this.roomInfo = {};
                 this.dialogVisible = false;
+            },
+            //确认选择宿舍
+            confirmSelect(){
+                if(!this.status){
+                    this.status = true;
+                    this.roomInfo.account='20195650020';
+                    this.roomInfo.name='张志杰';
+                }else{
+                    this.$message({
+                        message: '不能重复选择宿舍，请到宿管员办理相关手续',
+                        type: 'warning'
+                    });
+                }
+                this.dialogClose();
             }
         }
     }

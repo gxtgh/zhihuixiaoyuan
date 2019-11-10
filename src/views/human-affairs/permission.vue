@@ -6,7 +6,7 @@
                     <i slot="prefix" class="el-input__icon el-icon-search"></i>
                 </el-input>
                 <el-button type="primary" @click="searchSubmit">查询</el-button>
-                <el-button type="primary" class="fl-right" @click="dialogPvVisible = true">新增</el-button>
+                <el-button type="primary" class="fl-right" @click="handleAddRole">新增</el-button>
             </div>
             <el-table
                     v-loading="listLoading"
@@ -23,20 +23,17 @@
                     </template>
                 </el-table-column>
                 <el-table-column label="角色名称" prop="name"  align="center" ></el-table-column>
-                <el-table-column label="角色声明" prop="description"  align="center" > </el-table-column>
+                <el-table-column label="角色说明" prop="description"  align="center" > </el-table-column>
                 <el-table-column label="角色状态"   align="center"  >
                     <template slot-scope="scope">
-                       {{scope.row.state?"有效":"关闭"}}
+                       {{scope.row.state=='1'?"有效":"关闭"}}
                     </template>
                 </el-table-column>
-                <el-table-column label="创建时间"   align="center"  >
-                    2019-01 00:00:00
-                </el-table-column>
+                <el-table-column label="创建时间" prop="time"   align="center"  ></el-table-column>
                 <el-table-column label="操作"   align="center"  >
                     <template slot-scope="scope">
-                        <el-button type="text">编辑</el-button>
-                        <el-button type="text">配置权限</el-button>
-                        <el-button type="text" class="color-red" >删除</el-button>
+                        <el-button type="text" @click="handleEdit(scope)">编辑权限</el-button>
+                        <el-button type="text" class="color-red" @click="handleDelete(scope)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -44,21 +41,22 @@
         <!--分页-->
         <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
         <!--模态框-->
-        <el-dialog :visible.sync="dialogPvVisible" title="权限组信息" :before-close="dialogClose" class="dialogPermission">
+        <el-dialog :visible.sync="dialogVisible" title="权限组信息" :before-close="dialogClose" class="dialogPermission">
 
             <el-form :model="role" label-width="70px" label-position="left">
                 <el-row :gutter="50">
                     <el-col :span="12">
-                        <el-form-item label="角色名称">
+                        <el-form-item label="权限类型">
+                            <el-radio v-model="role.type" label="1">新增</el-radio>
+                            <el-radio v-model="role.type" label="2">学校的统一认证</el-radio>
+                        </el-form-item>
+                        <el-form-item v-show="role.type==1" label="角色名称">
                             <el-input v-model="role.name" placeholder="请输入角色名称" />
                         </el-form-item>
-                        <el-form-item label="角色说明">
-                            <el-input v-model="role.name" placeholder="角色说明非必填" />
+                        <el-form-item v-show="role.type==1" label="角色说明">
+                            <el-input v-model="role.description" placeholder="角色说明非必填" />
                         </el-form-item>
-                        <el-form-item label="角色状态">
-                            <el-radio v-model="role.state" label="false">启用</el-radio>
-                            <el-radio v-model="role.state" label="true">停用</el-radio>
-                        </el-form-item>
+
                     </el-col>
                     <el-col :span="12" class="el-tree-col">
                         <el-tree
@@ -69,12 +67,13 @@
                                 show-checkbox
                                 node-key="path"
                                 class="permission-tree"
+                                :default-expanded-keys="schoolOpen"
                         />
                     </el-col>
                 </el-row>
             </el-form>
             <span slot="footer" class="dialog-footer">
-                <el-button  @click="dialogPvVisible = false">取消</el-button>
+                <el-button  @click="dialogVisible = false">取消</el-button>
                 <el-button type="primary" @click="confirmRole">确定</el-button>
              </span>
         </el-dialog>
@@ -85,17 +84,17 @@
     import Pagination from '@/components/Pagination'
 
     import path from 'path'
-    import { deepClone } from '@/utils'
+    import { deepClone ,parseTime} from '@/utils'
     import { getRoutes, getRoles, addRole, deleteRole, updateRole } from '@/api/role'
     const defaultRole = {
         key: '',
         name: '',
         description: '',
         routes: [],
-        state:false,
-        checkStrictly: false,
-    }
-
+        state:1,
+        type:'1',
+        time:""
+    };
     export default {
         name: "permission",
         components: { Pagination },
@@ -104,51 +103,112 @@
                 name:"",//查询名称
                 rolesList:[
                     // {key:"5452001",name:"超级管理",description:"1356667778",state:true,time:"2019-01 00:00:00"},
-                    // {key:"5452001",name:"管理员",description:"1356667778",state:false,time:"2019-01 00:00:00"},
-                    // {key:"5452001",name:"人事部经理",description:"1356667778",state:false,time:"2019-01 00:00:00"},
-                    // {key:"5452001",name:"教务主任",description:"1356667778",state:true,time:"2019-01 00:00:00"},
-                    // {key:"5452001",name:"党委学生部",description:"1356667778",state:false,time:"2019-01 00:00:00"},
-                    // {key:"5452001",name:"后勤管理",description:"1356667778",state:true,time:"2019-01 00:00:00"},
-                    // {key:"5452001",name:"财务处",description:"1356667778",state:true,time:"2019-01 00:00:00"},
-                    // {key:"5452001",name:"教务处",description:"1356667778",state:true,time:"2019-01 00:00:00"}
-                    ],
+                        ],
                 listLoading:false,
-                total:100,//总数
+                total:0,//总数
                 listQuery:{
-                    page:2,
+                    page:1,
                     limit:10,
                 },
-                dialogPvVisible:false,//模态框是否显示
+                dialogVisible:false,//模态框是否显示
                 role: Object.assign({}, defaultRole),
                 routes: [],
+                schoolOpen:[],//学校权限展开的项
+                schoolRoutes:[
+                    {
+                        id:1,
+                        path:'/taizhouxuexiao',
+                        title:"泰州学校",
+                        children:[
+                            {
+                                path:'/tuanwei',
+                                title:'团委',
+                                children:[
+                                    {
+                                        path:'/tuanwei/xuanchuanbu',
+                                        title:'宣传部'
+                                    },
+                                    {
+                                        path:'/tuanwei/shijianbu',
+                                        title:'实践部'
+                                    },
+                                    {
+                                        path:'/tuanwei/wentibu',
+                                        title:'文体部'
+                                    },
+                                    {
+                                        path:'/tuanwei/xueshengshetuan',
+                                        title:'学生社团'
+                                    },
+                                ]
+                            },
+                            {
+                                path:'/zhaoshengban',
+                                title:'招生办'
+                            },
+                            {
+                                path:'/jiaoyuguanlike',
+                                title:'教育管理科'
+                            },
+                            {
+                                path:'/xueshengzizhuzhongxin',
+                                title:'学生资助中心'
+                            },
+                            {
+                                path:'/xinlijiankangzhongxin',
+                                title:'心理健康中心'
+                            },
+                        ]
+                    }
+                ],
+                routesData:[],
                 dialogType: 'new',
                 checkStrictly: false,
                 defaultProps: {
-                    children: 'children',
+                    // children: 'children',
                     label: 'title'
                 }
             }
         },
-        computed: {
-            routesData() {
-                return this.routes
+        // computed: {
+        //     routesData() {
+        //         return this.routes
+        //     },
+        //
+        // },
+        watch:{
+            routes(val){
+                this.routesData = val;
+            },
+            'role.type'(val){
+                if(val == 1){
+                   this.routesData = this.routes;
+                }else{
+                   this.routesData = this.schoolRoutes;
+                }
             }
         },
-        // watch:{
-        //     dialogPvVisible(newValue){
-        //         if(newValue){
-        //             this.getRoutes()
-        //         }
-        //     }
-        // },
         created() {
             // Mock: get all routes and roles list from server
             this.getRoutes();
-            this.getRoles()
+            this.getRoles();
         },
         methods:{
             // 查询
-            searchSubmit(){
+            async searchSubmit(){
+                const res = await getRoles();
+                if(this.name ==''){
+                    this.rolesList = res.data;
+                }else{
+                    var arr =[];
+                    var __this = this;
+                    res.data.forEach(function(item){
+                       if(item.name.indexOf(__this.name)>-1){
+                           arr.push(item);
+                       }
+                    });
+                    this.rolesList = arr;
+                }
 
             },
             // 获取列表
@@ -171,19 +231,22 @@
                 //     }, 1.5 * 1000)
                 // });
             },
-
             //关闭模态框
             dialogClose(){
-                this.dialogPvVisible = false;
+                this.dialogVisible = false;
             },
+            //获取路由列表
             async getRoutes() {
-                const res = await getRoutes()
-                this.serviceRoutes = res.data
-                this.routes = this.generateRoutes(res.data)
+                const res = await getRoutes();
+                this.serviceRoutes = res.data;
+                this.routes = this.generateRoutes(res.data);
+                console.log(this.routes);
             },
+            // 获取权限列表
             async getRoles() {
-                const res = await getRoles()
-                this.rolesList = res.data
+                const res = await getRoles();
+                this.rolesList = res.data;
+                // console.log(res)
             },
 
             // Reshape the routes structure so that it looks the same as the sidebar
@@ -236,10 +299,10 @@
                 this.dialogVisible = true
             },
             handleEdit(scope) {
-                this.dialogType = 'edit'
-                this.dialogVisible = true
-                this.checkStrictly = true
-                this.role = deepClone(scope.row)
+                this.dialogType = 'edit';
+                this.dialogVisible = true;
+                this.checkStrictly = true;
+                this.role = deepClone(scope.row);
                 this.$nextTick(() => {
                     const routes = this.generateRoutes(this.role.routes)
                     this.$refs.tree.setCheckedNodes(this.generateArr(routes))
@@ -248,26 +311,25 @@
                 })
             },
             handleDelete({ $index, row }) {
-                this.$confirm('Confirm to remove the role?', 'Warning', {
-                    confirmButtonText: 'Confirm',
-                    cancelButtonText: 'Cancel',
+                this.$confirm('确定删除'+row.name+'?', '权限信息', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
                     type: 'warning'
                 })
                     .then(async() => {
-                        await deleteRole(row.key)
-                        this.rolesList.splice($index, 1)
+                        await deleteRole(row.key);
+                        this.rolesList.splice($index, 1);
                         this.$message({
                             type: 'success',
-                            message: 'Delete succed!'
+                            message: '删除成功!'
                         })
                     })
                     .catch(err => { console.error(err) })
             },
             generateTree(routes, basePath = '/', checkedKeys) {
-                const res = []
-
+                const res = [];
                 for (const route of routes) {
-                    const routePath = path.resolve(basePath, route.path)
+                    const routePath = path.resolve(basePath, route.path);
 
                     // recursive child routes
                     if (route.children) {
@@ -287,7 +349,7 @@
                 this.role.routes = this.generateTree(deepClone(this.serviceRoutes), '/', checkedKeys)
 
                 if (isEdit) {
-                    await updateRole(this.role.key, this.role)
+                    await updateRole(this.role.key, this.role);
                     for (let index = 0; index < this.rolesList.length; index++) {
                         if (this.rolesList[index].key === this.role.key) {
                             this.rolesList.splice(index, 1, Object.assign({}, this.role))
@@ -295,12 +357,13 @@
                         }
                     }
                 } else {
-                    const { data } = await addRole(this.role)
-                    this.role.key = data.key
-                    this.rolesList.push(this.role)
+                    const { data } = await addRole(this.role);
+                    this.role.key = this.rolesList.length+1;
+                    this.role.time = parseTime(new Date().getTime());
+                    this.rolesList.push(this.role);
                 }
 
-                const { description, key, name } = this.role
+                const { description, key, name } = this.role;
                 this.dialogVisible = false
                 this.$notify({
                     title: 'Success',
@@ -418,6 +481,7 @@
         .permission-tree{
             max-height: 400px;
             overflow: auto;
+            padding:15px 0;
             border: 1px solid rgba(204, 204, 204, 1);
         }
     }

@@ -7,7 +7,10 @@ const state = {
   name: '',
   avatar: '',
   introduction: '',
-  roles: []
+  roles: [],
+  collection:[
+    {title:"9月18日（周一）举行2019年开学典礼",name:"",time:"09/1 7:00",status:0,collection:true},
+  ]
 }
 
 const mutations = {
@@ -25,8 +28,18 @@ const mutations = {
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
+  },
+  SET_COLLECTION:(state, collection) => {
+    state.collection.push(collection);
+  },
+  POP_COLLECTION:(state, collection) => {
+    state.collection.forEach((item,i)=>{
+      if(item == collection){
+        state.collection.splice(i,1);
+      }
+    });
   }
-}
+};
 
 const actions = {
   // user login

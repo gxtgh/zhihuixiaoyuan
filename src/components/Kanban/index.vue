@@ -9,8 +9,13 @@
       class="board-column-content"
       :set-data="setData"
     >
-      <div v-for="element in list" :key="element.id" class="board-item">
-        {{ element.name }} {{ element.id }}
+      <div v-for="(element,i) in list" :key="element.id" class="board-item">
+        <div class="left">{{i+1+". "}}</div>
+        <div class="right info">
+          <p>{{ element.account }}</p>
+          <p>{{ element.name }}</p>
+        </div>
+
       </div>
     </draggable>
   </div>
@@ -66,7 +71,7 @@ export default {
     overflow: hidden;
     padding: 0 20px;
     text-align: center;
-    background: #333;
+    background: rgba(74,161,247,.6);
     color: #fff;
     border-radius: 3px 3px 0 0;
   }
@@ -80,7 +85,6 @@ export default {
     justify-content: flex-start;
     flex-direction: column;
     align-items: center;
-
     .board-item {
       cursor: pointer;
       width: 100%;
@@ -88,10 +92,21 @@ export default {
       margin: 5px 0;
       background-color: #fff;
       text-align: left;
-      line-height: 54px;
       padding: 5px 10px;
       box-sizing: border-box;
       box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.2);
+      display: flex;
+      .left{
+        width:50px;
+        line-height:27px;
+        text-align: right;
+      }
+      .right{
+        flex:1;
+        line-height:27px;
+        padding-left:10px;
+        p{margin:0;}
+      }
     }
   }
 }

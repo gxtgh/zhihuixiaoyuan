@@ -2,67 +2,79 @@
     <div class="operating-container">
         <el-row :gutter="15">
             <el-col :span="12">
-                <!--师资数据-->
+                <!--近年资产统计-->
                 <el-card class="box-card visitors-number">
                     <div slot="header" class="clearfix">
-                        <span class="title">近年资产统计</span>
+                        <span class="title">资产情况</span>
                         <el-button style="float: right; padding: 3px 0" type="text" icon="el-icon-close" class="closeBtn"></el-button>
                     </div>
                     <div id="chart1" ></div>
+                    <div class="breadCrumb-box" >
+                        <span @click="showType1 = 0">近年资产统计</span>
+                        <span @click="showType1 = 1" v-show="showType1 >=1">&nbsp;》&nbsp;资产占比</span>
+                        <span @click="showType1 = 2" v-show="showType1 >=2">&nbsp;》&nbsp;固定资产</span>
+                    </div>
                 </el-card>
             </el-col>
             <el-col :span="12">
-                <!--科研数据-->
+                <!--工资统计-->
                 <el-card class="box-card ">
                     <div slot="header" class="clearfix">
                         <span class="title">工资统计</span>
                         <el-button style="float: right; padding: 3px 0" type="text" icon="el-icon-close" class="closeBtn"></el-button>
                     </div>
                     <div id="chart2" ></div>
+                    <div class="breadCrumb-box" >
+                        <span @click="showType2 = 0">近五年工资情况统计</span>
+                        <span @click="showType2 = 1" v-show="showType2 >=1">&nbsp;》&nbsp;公龄工资</span>
+                    </div>
                 </el-card>
             </el-col>
             <el-col :span="12">
-                <!--资产数据-->
+                <!--教学质量分析-->
                 <el-card class="box-card ">
                     <div slot="header" class="clearfix">
                         <span class="title">教学质量分析</span>
                         <el-button style="float: right; padding: 3px 0" type="text" icon="el-icon-close" class="closeBtn"></el-button>
                     </div>
-                    <div id="chart3"  v-show="list3Type==0"></div>
-                    <el-table
-                            v-show="list3Type==1"
-                            v-loading="listLoading3"
-                            :data="list3"
-                            border
-                            fit
-                            highlight-current-row
-                            style="width: 100%;margin:15px;"
-                            class="tableBox"
-                    >
-                        <el-table-column label="教工号" prop="id"  align="center"  >
-                            <template slot-scope="scope">
-                                {{scope.row.id}}
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="姓名" prop="name"  align="center" ></el-table-column>
-                        <el-table-column label="参评人数" prop="number"  align="center" > </el-table-column>
-                        <el-table-column label="平均积分"  prop="integral"  align="center"  ></el-table-column>
-                    </el-table>
-                    <div v-show="list3Type!=0" style="margin:15px;padding:10px;">
-                        <span @click="list3Type = 0">教学质量分析</span> 》
-                        <span @click="list3Type = 1">学科</span>
+                    <div id="chart3"  v-show="showType3==0"></div>
+                    <!--<el-table-->
+                            <!--v-show="showType3==1"-->
+                            <!--v-loading="listLoading3"-->
+                            <!--:data="list3"-->
+                            <!--border-->
+                            <!--fit-->
+                            <!--highlight-current-row-->
+                            <!--style="width: 100%;margin:15px;"-->
+                            <!--class="tableBox"-->
+                    <!--&gt;-->
+                        <!--<el-table-column label="教工号" prop="id"  align="center"  >-->
+                            <!--<template slot-scope="scope">-->
+                                <!--{{scope.row.id}}-->
+                            <!--</template>-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column label="姓名" prop="name"  align="center" ></el-table-column>-->
+                        <!--<el-table-column label="参评人数" prop="number"  align="center" > </el-table-column>-->
+                        <!--<el-table-column label="平均积分"  prop="integral"  align="center"  ></el-table-column>-->
+                    <!--</el-table>-->
+                    <div class="breadCrumb-box" >
+                        <span @click="showType3 = 0">教学质量分析</span>
+                        <!--<span @click="showType3 = 1">学科</span>-->
                     </div>
                 </el-card>
             </el-col>
             <el-col :span="12">
-                <!--人员情况-->
+                <!--科研统计-->
                 <el-card class="box-card ">
                     <div slot="header" class="clearfix">
                         <span class="title">科研统计</span>
                         <el-button style="float: right; padding: 3px 0" type="text" icon="el-icon-close" class="closeBtn"></el-button>
                     </div>
                     <div id="chart5"></div>
-
+                    <div class="breadCrumb-box" >
+                        <span @click="showType4 = 0">近五年科研项目统计</span>
+                        <!--<span @click="showType3 = 1">学科</span>-->
+                    </div>
                 </el-card>
             </el-col>
         </el-row>
@@ -73,6 +85,7 @@
     import echarts from 'echarts'
     require('echarts/theme/macarons'); // echarts theme
     // import resize from './mixins/resize'
+    var colorList = ['#57a2d7',"#8adce4","#fada73","#f3a287","#d26cad","#e1bfee","#817ce3","#96bfff"]; //echarts color
     var __this = null ;
     export default {
         name: "operatingIndex",
@@ -80,19 +93,19 @@
             return{
                 chart1:null,//访问人数
                 chart2:null,//浏览器
-                showType1:0,//0:柱状图 1：柱状图
-                showType2:0,//0:折线图 1：柱状图
+                showType1:0,//0:近年资产统计 1：资产占比 2：固定资产
+                showType2:0,//0:近五年工资情况统计 1：公龄工资
                 chart3:null,//终端设备统计
                 chart5:null,//访问来源
-
                 listLoading3:false,
-                list3Type:0,//0 1 2
+                showType3:0,//0 1 2
                 list3:[
                     {id:"2019189247128472",name:"张志虎",number:58,integral:60.67},
                     {id:"2019189247128473",name:"韩分",number:58,integral:60.67},
                     {id:"2019189247128474",name:"张镜",number:58,integral:60.67},
                     {id:"2019189247128475",name:"张虎",number:58,integral:60.67},
                 ],
+                showType4:0,//0:近五年科研项目统计
             }
         },
         mounted() {
@@ -115,8 +128,36 @@
             this.chart5.dispose();
             this.chart1 = this.chart2 = this.chart3  = this.chart5 =null;
         },
+        watch:{
+            // 资产情况
+            showType1(newValue){
+                if(newValue == 0){
+                    this.initChart1();
+                }else if(newValue == 1){
+                    __this.initChart10();
+                }else{
+                    __this.initChart11();
+                }
+            },
+            // 工资统计
+            showType2(newValue){
+                if(newValue == 0){
+                    this.initChart2();
+                }else if(newValue == 1){
+                    __this.initChart20();
+                }
+            },
+            // 教学质量分析
+            showType3(newValue){
+                if(newValue == 0){
+                    // this.initChart3();
+                }else if(newValue == 1){
+
+                }
+            },
+        },
         methods:{
-            // 访问人数
+            // 资产情况-近年资产统计
             initChart1(){
                 // 柱状
                 var option1 ={
@@ -130,9 +171,13 @@
                         trigger: 'item',
                         formatter: '{a} <br/>{b} : {c} '
                     },
+                    grid:{
+                        bottom:40,
+                    },
                     xAxis : [
                         {
                             type : 'category',
+                            name:'年份',
                             data : ['2013', '2014', '2015', '2016', '2017', '2018'],
                             axisTick: {
                                 alignWithLabel: true
@@ -141,15 +186,22 @@
                     ],
                     yAxis : [
                         {
-                            type : 'value'
+                            type : 'value',
+                            name: '单位：万元',
                         }
                     ],
                     series: [
                         {
                             name:'工资统计',
                             type:'bar',
-                            barWidth: '60%',
-                            data:[5800, 6000, 5900, 6100, 6500,6400]
+                            barWidth: 40,
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:colorList[0]
+                                }
+                            },
+                            data:[2500, 2750, 3000, 3100, 3500,4000]
                         }
                     ]
                 };
@@ -161,9 +213,11 @@
                 this.chart1.on('click',function(object){
                     // 销毁之前的echarts实例
                     echarts.dispose(document.getElementById('chart1'));
-                    __this.initChart10();
+                    // __this.initChart10();
+                    __this.showType1 = 1 ;
                 });
             },
+            // 资产情况-资产占比
             initChart10(){
                 // 南丁格尔玫瑰图
                 var option2 = {
@@ -179,18 +233,30 @@
                     calculable : true,
                     series: [
                         {
-                            name:'浏览器',
+                            name:'固定资产',
                             type:'pie',
                             radius : [30, 110],
                             center : ['50%', '50%'],
                             roseType : 'area',
+                            label:{
+                                color:"#000000",
+                                fontSize:16
+                            },
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:function (params) {
+                                        return colorList[params.dataIndex];
+                                    }
+                                }
+                            },
                             data:[
-                                {value:50, name:'谷歌 50% （14.1.0)'},
-                                {value:10, name:'猎豹 10% (11.2.0)'},
-                                {value:5, name:'QQ 5%'},
-                                {value:5, name:'IE 5%'},
-                                {value:20, name:'火狐 20%'},
-                                {value:10, name:'其他 10%'}
+                                {value:50, name:'在建工程 10%'},
+                                {value:10, name:'无形资产 10%'},
+                                {value:5, name:'折旧摊销 10%'},
+                                {value:5, name:'其他资产 5%'},
+                                {value:20, name:'流动资产 20%'},
+                                {value:10, name:'固定资产 45%'}
                             ]
                         }
                     ]
@@ -202,9 +268,10 @@
                 myChart.on('click',function(object){
                     // 销毁之前的echarts实例
                     echarts.dispose(document.getElementById('chart1'));
-                    __this.initChart11();
+                    __this.showType1 = 2 ;
                 });
             },
+            // 资产情况-固定资产
             initChart11(){
                 // 折线图
                 var option3 ={
@@ -223,95 +290,88 @@
                         formatter: '{a} <br/>{b} : {c} '
                     },
                     xAxis: {
+                        show:false,
                         type: 'category',
                         boundaryGap: false,
                         data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
                     },
                     yAxis: {
-                        type: 'value'
+                        type: 'value',
+                        name:"万元"
                     },
                     series: [
                         {
                             name:'办公用房',
                             type:'line',
                             stack: '总量',
-                            data:[120, 132, 101, 134, 90, 230, 210]
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:colorList[0]
+                                }
+                            },
+                            data:[240, 300, 240, 230, 300, 350, 400]
                         },
                         {
                             name:'业务用房',
                             type:'line',
                             stack: '总量',
-                            data:[120, 132, 101, 134, 90, 230, 210]
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:colorList[1]
+                                }
+                            },
+                            data:[240, 245, 260, 290, 280, 280, 300]
                         },
                         {
                             name:'校车',
                             type:'line',
                             stack: '总量',
-                            data:[120, 132, 101, 134, 90, 230, 210]
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:colorList[2]
+                                }
+                            },
+                            data:[150, 150, 180, 180, 210, 250, 250]
                         },
                         {
                             name:'轿车',
                             type:'line',
                             stack: '总量',
-                            data:[120, 132, 101, 134, 90, 230, 210]
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:colorList[3]
+                                }
+                            },
+                            data:[150, 160, 160, 178, 200, 210, 210]
                         },
                         {
                             name:'其他',
                             type:'line',
                             stack: '总量',
-                            data:[120, 132, 101, 134, 90, 230, 210]
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:colorList[4]
+                                }
+                            },
+                            data:[50, 58, 55, 60, 65, 65, 70]
                         },
                     ]
                 };
                 // 初始化一个新的实例
                 var myChart = echarts.init(document.getElementById('chart1'));
                 myChart.setOption(option3, true);
-                // this.chart1.on('click',function(object){
-                //     // 销毁之前的echarts实例
-                //     echarts.dispose(document.getElementById('chart1'));
-                //     __this.initChart11();
-                // });
             },
-            // 浏览器
+            // 资产情况-近年资产统计
             initChart2() {
-                var option1 ={
+                var option1 = {
                     title:{
                         show:true,
-                        text:"近年资产统计",
-                        textAlign:"left",
-                        x:"center"
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: '{a} <br/>{b} : {c} '
-                    },
-                    xAxis : [
-                        {
-                            type : 'category',
-                            data : ['2013', '2014', '2015', '2016', '2017', '2018'],
-                            axisTick: {
-                                alignWithLabel: true
-                            }
-                        }
-                    ],
-                    yAxis : [
-                        {
-                            type : 'value'
-                        }
-                    ],
-                    series: [
-                        {
-                            name:'工资统计',
-                            type:'bar',
-                            barWidth: '60%',
-                            data:[5800, 6000, 5900, 6100, 6500,6400]
-                        }
-                    ]
-                };
-                var option2 = {
-                    title:{
-                        show:true,
-                        text:"近五年工资情况统计",
+                        text:"近五年情况统计",
                         textAlign:"left",
                         x:"center"
                     },
@@ -326,64 +386,106 @@
                     },
                     xAxis: {
                         type: 'category',
+                        name:"年份",
                         boundaryGap: false,
                         data: ['2014','2015','2016','2017','2018']
                     },
                     yAxis: {
-                        type: 'value'
+                        type: 'value',
+                        name:"万元"
                     },
                     series: [
                         {
                             name:'基础工资',
                             type:'line',
                             stack: '总量',
-                            data:[120, 132, 101, 134, 90, 230, 210]
+                            data:[100, 250, 500, 650, 700]
                         },
                         {
                             name:'岗位工资',
                             type:'line',
                             stack: '总量',
-                            data:[220, 182, 191, 234, 290, 330, 310]
+                            data:[100, 150, 258, 300, 400]
                         },
                         {
                             name:'工龄工资',
                             type:'line',
                             stack: '总量',
-                            data:[150, 232, 201, 154, 190, 330, 410]
+                            data:[50, 80, 100, 150, 200]
                         },
                         {
                             name:'奖金',
                             type:'line',
                             stack: '总量',
-                            data:[320, 332, 301, 334, 390, 330, 320]
+                            data:[60, 70, 70, 100, 150]
+                        }
+                    ]
+                };
+                echarts.dispose(document.getElementById('chart2'));
+                this.chart2 = echarts.init(document.getElementById('chart2'));
+                this.chart2.setOption(option1);
+                var __this = this;
+                this.chart2.on('click',function(object){
+                    // 销毁之前的echarts实例
+                    echarts.dispose(document.getElementById('chart2'));
+                    __this.showType2 = 1;
+                });
+
+            },
+            // 资产情况-近年资产统计
+            initChart20() {
+                var option2 ={
+                    title:{
+                        show:true,
+                        text:"公龄工资统计",
+                        textAlign:"left",
+                        x:"center"
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{b} : {c} '
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            name:"元",
+                            data : ['9年', '7年', '5年', '3年', '1年'],
+                            axisTick: {
+                                alignWithLabel: true
+                            }
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value',
+                            name:"公龄"
+                        }
+                    ],
+                    series: [
+                        {
+                            name:'工资统计',
+                            type:'bar',
+                            barWidth: '60%',
+                            data:[4000, 3000, 2500, 1500, 500]
                         }
                     ]
                 };
                 this.chart2 = echarts.init(document.getElementById('chart2'));
                 this.chart2.setOption(option2);
-                var __this = this;
-                this.chart2.on('click',function(object){
-                    // 销毁之前的echarts实例
-                    echarts.dispose(document.getElementById('chart2'));
-                    // 初始化一个新的实例
-                    var myChart = echarts.init(document.getElementById('chart2'));
-                    myChart.setOption(__this.showType2?option2:option1, true);
-                });
-
             },
-            // 终端设备统计
+            // 教学质量分析
             initChart3() {
+                echarts.dispose(document.getElementById('chart3'));
                 this.chart3 = echarts.init(document.getElementById('chart3'));
                 this.chart3.setOption({
                     tooltip: {
                         trigger: 'item',
-                        formatter: '{a} <br/>{b} : {c} ({d}%)'
+                        formatter: '{a} <br/>{b} : {c}%'
                     },
-                    // legend: {
-                    //     left: 'center',
-                    //     bottom: '10',
-                    //     data: ['Industries', 'Technology', 'Forex', 'Gold', 'Forecasts']
-                    // },
+                    label:{
+                        color:"#000000",
+                        fontSize:16
+                    },
                     series: [
                         {
                             name: '教学质量分析',
@@ -391,25 +493,32 @@
                             radius : '65%',
                             center: ['50%', '50%'],
                             selectedMode: 'single',
+                            itemStyle:{
+                                normal:{
+                                    //颜色
+                                    color:function (params) {
+                                        return colorList[params.dataIndex];
+                                    }
+                                }
+                            },
+
                             data: [
-                                { value: 60, name: '英语学科' },
-                                { value: 15, name: '大学语文' },
-                                { value: 15, name: '高等数学' },
-                                { value: 7, name: '经济学' },
-                                { value: 3, name: '哲学' }
+                                { value: 20, name: '大学语文' },
+                                { value: 13.3, name: '高等数学' },
+                                { value: 15, name: '经济学' },
+                                { value: 15, name: '哲学' },
+                                { value: 36.7, name: '英语学科' }
                             ],
                             animationEasing: 'cubicInOut',
                             animationDuration: 2600
                         }
                     ]
-                });
+                },true);
                 var __this =this;
                 this.chart3.on('click',function(object){
-                    __this.list3Type = 1;
+                    // __this.showType3 = 1;
                 });
-
             },
-
             // 访问来源
             initChart5() {
                 var option1 = {
@@ -497,14 +606,14 @@
                 ]};
                 this.chart5 = echarts.init(document.getElementById('chart5'));
                 this.chart5.setOption(option1);
-                this.chart5.on('click',function(object){
-                    // 销毁之前的echarts实例
-                    echarts.dispose(document.getElementById('chart5'));
-                    // 初始化一个新的实例
-                    var myChart = echarts.init(document.getElementById('chart5'));
-                    // console.dir(object);
-                    myChart.setOption(option2, true);
-                });
+                // this.chart5.on('click',function(object){
+                //     // 销毁之前的echarts实例
+                //     echarts.dispose(document.getElementById('chart5'));
+                //     // 初始化一个新的实例
+                //     var myChart = echarts.init(document.getElementById('chart5'));
+                //     // console.dir(object);
+                //     myChart.setOption(option2, true);
+                // });
             },
         }
     }
@@ -538,7 +647,10 @@
             padding:0;
         }
     }
-
+    .breadCrumb-box{
+        margin:15px;padding:10px;
+        span{cursor:pointer;}
+    }
     .chart1-info{
         padding:15px;
         text-align: center;

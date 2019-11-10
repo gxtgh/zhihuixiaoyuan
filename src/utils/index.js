@@ -8,6 +8,10 @@
  * @param {string} cFormat
  * @returns {string | null}
  */
+export function intoNewPage(href) {
+  const routerUrl = this.$router.resolve({path:href})
+  window.open(routerUrl.href, '_blank')
+}
 export function parseTime(time, cFormat) {
   if (arguments.length === 0) {
     return null
