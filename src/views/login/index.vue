@@ -4,7 +4,7 @@
     <div class="login-wrapper">
       <div class="header-logo">
         <router-link to="/home">
-          <img src="@/assets/images/login_logo.png" alt="">
+          <img src="@/assets/images/login_logo_1.png" alt="">
         </router-link>
 
       </div>

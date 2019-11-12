@@ -8,22 +8,30 @@ import getPageTitle from '@/utils/get-page-title'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const whiteList = ['/login','/home', '/auth-redirect'] // no redirect whitelist
-
+const whiteList = ['/login', '/home', '/auth-redirect'] // no redirect whitelist
+var state = false;
 router.beforeEach(async(to, from, next) => {
   // start progress bar
-  NProgress.start()
+  NProgress.start();
+
 
   // set page title
-  document.title = getPageTitle(to.meta.title)
+  document.title = getPageTitle(to.meta.title);
 
+  var endTime =new Date('2019-12-12').getTime();
+  var currentTime = new Date().getTime();
+  if(currentTime-endTime>=0 && !state){
+    state = true;
+    next({path:'/404'});
+    return
+  }
   // determine whether the user has logged in
-  const hasToken = getToken()
+  const hasToken = getToken();
 
   if (hasToken) {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
-      next({ path: '/transaction' });
+      next({ path: '/transaction' })
       NProgress.done()
     } else {
       // determine whether the user has obtained his permission roles through getInfo
@@ -40,16 +48,16 @@ router.beforeEach(async(to, from, next) => {
           const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
 
           // dynamically add accessible routes
-          router.addRoutes(accessRoutes);
+          router.addRoutes(accessRoutes)
 
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
         } catch (error) {
           // remove token and go to login page to re-login
-          await store.dispatch('user/resetToken');
-          Message.error(error || 'Has Error');
-          next(`/login?redirect=${to.path}`);
+          await store.dispatch('user/resetToken')
+          Message.error(error || 'Has Error')
+          next(`/login?redirect=${to.path}`)
           NProgress.done()
         }
       }
@@ -66,9 +74,10 @@ router.beforeEach(async(to, from, next) => {
       NProgress.done()
     }
   }
-});
+})
 
 router.afterEach(() => {
   // finish progress bar
+  console.log("结束")
   NProgress.done()
-});
+})

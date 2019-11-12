@@ -6,6 +6,7 @@ const routes = deepClone([...constantRoutes, ...asyncRoutes])
 
 const roles = [
   {
+    type:'1',
     key: '1',
     name: '超级管理',
     description: '超级管理',
@@ -14,6 +15,7 @@ const roles = [
     state:1
   },
   {
+    type:'1',
     key: '2',
     name: '管理员',
     description: '管理员',

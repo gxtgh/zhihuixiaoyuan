@@ -9,8 +9,8 @@
       class="board-column-content"
       :set-data="setData"
     >
-      <div v-for="(element,i) in list" :key="element.id" class="board-item">
-        <div class="left">{{i+1+". "}}</div>
+      <div v-for="(element,i) in list" :key="element.id" class="board-item" :class="{'empty':!element.name,'actived':accountValue == element.account}">
+        <div class="left">{{ i+1+". " }}</div>
         <div class="right info">
           <p>{{ element.account }}</p>
           <p>{{ element.name }}</p>
@@ -30,6 +30,12 @@ export default {
     draggable
   },
   props: {
+    accountValue: {
+      type: String,
+      default() {
+        return ""
+      }
+    },
     headerText: {
       type: String,
       default: 'Header'
@@ -100,6 +106,10 @@ export default {
         width:50px;
         line-height:27px;
         text-align: right;
+      }
+      &.actived{
+        border:1px solid #4A9FF9;
+        color: #4A9FF9;
       }
       .right{
         flex:1;

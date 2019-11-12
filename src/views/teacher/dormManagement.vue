@@ -4,56 +4,56 @@
     <el-form class="filter-box" label-width="90px" :model="formInline">
       <el-card class="box-card ">
         <div slot="header" class="clearfix">
-                    <span class="position-item">
-                        <span>楼栋</span>
-                        <el-select class="building" v-model="formInline.build" placeholder="请选择宿舍楼栋">
-                            <el-option label="C1栋" value="c1" />
-                            <el-option label="C2栋" value="c2" />
-                            <el-option label="C3栋" value="c3" />
-                            <el-option label="C4栋" value="c4" />
-                        </el-select>
-                    </span>
           <span class="position-item">
-                        <span>楼层</span>
-                        <el-select class="floor" v-model="formInline.floor" placeholder="请选择楼层">
-                             <el-option label="1F" value="1f" />
-                              <el-option label="2F" value="2f" />
-                              <el-option label="3F" value="3f" />
-                              <el-option label="4F" value="4f" />
-                              <el-option label="5F" value="5f" />
-                              <el-option label="6F" value="6f" />
-                              <el-option label="7F" value="7f" />
-                              <el-option label="8F" value="8f" />
-                              <el-option label="9F" value="9f" />
-                        </el-select>
-                    </span>
+            <span>楼栋</span>
+            <el-select v-model="formInline.build" class="building" placeholder="请选择宿舍楼栋">
+              <el-option label="C1栋" value="c1" />
+              <el-option label="C2栋" value="c2" />
+              <el-option label="C3栋" value="c3" />
+              <el-option label="C4栋" value="c4" />
+            </el-select>
+          </span>
           <span class="position-item">
-                        <span>房间号</span>
-                        <el-input class="room" v-model="formInline.room" placeholder="请输入房间号"></el-input>
-                    </span>
+            <span>楼层</span>
+            <el-select v-model="formInline.floor" class="floor" placeholder="请选择楼层">
+              <el-option label="1F" value="1f" />
+              <el-option label="2F" value="2f" />
+              <el-option label="3F" value="3f" />
+              <el-option label="4F" value="4f" />
+              <el-option label="5F" value="5f" />
+              <el-option label="6F" value="6f" />
+              <el-option label="7F" value="7f" />
+              <el-option label="8F" value="8f" />
+              <el-option label="9F" value="9f" />
+            </el-select>
+          </span>
+          <span class="position-item">
+            <span>房间号</span>
+            <el-input v-model="formInline.room" class="room" placeholder="请输入房间号" />
+          </span>
           <el-button type="primary" class="searchBtn">查询</el-button>
         </div>
         <el-form-item label="宿舍位置">
           <div class="select-item">
             <el-button type="text" class="all">不限</el-button>
             <el-checkbox-group v-model="formInline.positions" @change="checkedPosition">
-              <el-checkbox v-for="item in positionList" :label="item" :key="item">{{item}}</el-checkbox>
+              <el-checkbox v-for="item in positionList" :key="item" :label="item">{{ item }}</el-checkbox>
             </el-checkbox-group>
           </div>
         </el-form-item>
         <el-form-item label="价格区间">
           <div class="select-item">
             <el-button type="text" class="all">不限</el-button>
-            <el-input placeholder="最低价格" v-model="formInline.minPrice" class="minPrice"></el-input>
+            <el-input v-model="formInline.minPrice" placeholder="最低价格" class="minPrice" />
             -
-            <el-input placeholder="最高价格" v-model="formInline.maxPrice" class="maxPrice"></el-input>
+            <el-input v-model="formInline.maxPrice" placeholder="最高价格" class="maxPrice" />
           </div>
         </el-form-item>
         <el-form-item label="宿舍设施">
           <div class="select-item">
             <el-button type="text" class="all">不限</el-button>
             <el-checkbox-group v-model="formInline.settings" @change="checkedSetting">
-              <el-checkbox v-for="item in settingList" :label="item" :key="item">{{item}}</el-checkbox>
+              <el-checkbox v-for="item in settingList" :key="item" :label="item">{{ item }}</el-checkbox>
             </el-checkbox-group>
           </div>
         </el-form-item>
@@ -61,8 +61,8 @@
       </el-card>
     </el-form>
     <div class="result-list">
-      <el-row  :gutter="15">
-        <el-col :span="4" v-for="item in lists">
+      <el-row :gutter="15">
+        <el-col v-for="item in lists" :span="4">
           <board :key="1" :list="item.list" :group="group" class="kanban todo" :header-text="item.room" />
         </el-col>
       </el-row>
@@ -71,7 +71,7 @@
 </template>
 
 <script>
-  import board from './components/board';
+import board from './components/board'
 
 export default {
   components: {
@@ -79,22 +79,22 @@ export default {
   },
   data() {
     return {
-      formInline:{
-        build:'',
-        floor:'',
-        room:'',
-        positions:[],
-        minPrice:"",
-        maxPrice:"",
-        settings:[]
+      formInline: {
+        build: '',
+        floor: '',
+        room: '',
+        positions: [],
+        minPrice: '',
+        maxPrice: '',
+        settings: []
       },
-      positionList:["华南分校区","西乡分校区","车公庙分校区","坪山校区","宝安校区","横岗校区"],
-      settingList:["书桌","椅子","书柜","空调","热水器","饮水机","晾衣间","烘干机","冰箱"],
+      positionList: ['华南分校区', '西乡分校区', '车公庙分校区', '坪山校区', '宝安校区', '横岗校区'],
+      settingList: ['书桌', '椅子', '书柜', '空调', '热水器', '饮水机', '晾衣间', '烘干机', '冰箱'],
       group: 'mission',
-      lists:[
+      lists: [
         {
-          room:"701",
-          list:[
+          room: '701',
+          list: [
             { name: '张林海', id: 1 },
             { name: '', id: 2 },
             { name: '王雨陆', id: 3 },
@@ -102,59 +102,59 @@ export default {
           ]
         },
         {
-          room:"702",
-          list:[
+          room: '702',
+          list: [
             { name: '韩静海', id: 5 },
             { name: '', id: 6 },
             { name: '吴柏羽', id: 7 }
           ]
         },
         {
-          room:"703",
-          list:[
+          room: '703',
+          list: [
             { name: '刘雨', id: 8 },
             { name: '', id: 9 },
             { name: '', id: 10 },
             { name: '柳雨生', id: 11 }
-          ],
+          ]
         },
         {
-          room:"704",
+          room: '704',
           list: [
             { name: '', id: 12 },
             { name: '林尚则', id: 13 },
             { name: '林灵生', id: 14 }
-          ],
+          ]
         },
         {
-          room:"705",
-          list:[
+          room: '705',
+          list: [
             { name: '柳升莫', id: 15 },
             { name: '王月品', id: 16 },
             { name: '', id: 17 },
             { name: '李龚', id: 18 }
-          ],
+          ]
         },
         {
-          room:"706",
+          room: '706',
           list: [
             { name: '', id: 19 },
             { name: '张增杰', id: 20 },
             { name: '林家方', id: 21 }
-          ],
+          ]
         }
-      ],
+      ]
     }
   },
   methods: {
-      // 宿舍位置
-      checkedPosition(val){
-          console.log(val);
-      },
-      // 宿舍位置
-      checkedSetting(val){
-          console.log(val);
-      },
+    // 宿舍位置
+    checkedPosition(val) {
+      console.log(val)
+    },
+    // 宿舍位置
+    checkedSetting(val) {
+      console.log(val)
+    },
     onSubmit() {
 
     }
@@ -303,7 +303,6 @@ export default {
    /*padding-bottom: 10px;*/
 /*}*/
 /*}*/
-
 
   /*.floor_son {*/
     /*display: flex;*/

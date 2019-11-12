@@ -1,55 +1,66 @@
 <template>
-    <div class="board-column">
-        <div class="board-column-header">
-            {{ headerText }}
-        </div>
-        <div v-for="(element,i) in list" :key="element.id" class="board-item" :class="{'empty':!element.name}">
-            <div class="left">{{i+1+". "}}</div>
-            <div class="right info">
-                <p>{{ element.account }}</p>
-                <p>{{ element.name ?element.name:"空"}}</p>
-            </div>
-        </div>
+  <div class="board-column">
+    <div class="board-column-header">
+      {{ headerText }}
     </div>
+    <div v-for="(element,i) in list" :key="element.id" class="board-item" :class="{'empty':!element.name,'actived':accountValue == element.account}">
+      <div class="left">{{ i+1+". " }}</div>
+      <div class="right info">
+        <p>{{ element.account }}{{accountValue}}</p>
+        <p>{{ element.name ?element.name:"空" }}</p>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: "board",
-    props: {
-        headerText: {
-            type: String,
-            default: 'Header'
-        },
-        options: {
-            type: Object,
-            default() {
-                return {}
-            }
-        },
-        list: {
-            type: Array,
-            default() {
-                return []
-            }
-        },
+  name: 'Board',
+  props: {
+    accountValue: {
+      type: Number
     },
-    data(){
-        return{
-            currentData: ''
-        }
+    headerText: {
+      type: String,
+      default: 'Header'
     },
-    watch: {
-
+    options: {
+      type: Object,
+      default() {
+        return {}
+      }
     },
-    methods:{
-        // clickItem(params){
-        //     if(params.name ==""){
-        //         this.currentData = params;
-        //         this.$emit("parentEvent",params);
-        //     }
-        // }
+    list: {
+      type: Array,
+      default() {
+        return []
+      }
     }
+  },
+  mounted(){
+    console.log(this.list)
+  },
+  data() {
+    return {
+      currentData: ''
+    }
+  },
+  watch: {
+    accountValue(val){
+      console.log(val)
+    },
+    list(val){
+      console.log(val)
+    }
+  },
+  methods: {
+    // clickItem(params){
+    //     if(params.name ==""){
+    //         this.currentData = params;
+    //         this.$emit("parentEvent",params);
+    //     }
+    // }
+  }
 }
 </script>
 <style lang="scss" scoped>

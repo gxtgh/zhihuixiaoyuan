@@ -10,33 +10,34 @@
           <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
           <div class="right-box">
             <el-input placeholder="请输入内容" class="searchInput">
-              <i slot="prefix" class="el-input__icon el-icon-search"></i>
+              <i slot="prefix" class="el-input__icon el-icon-search" />
             </el-input>
             <div class="collectionBox">
               <el-popover
-                      class="showCollect"
-                      ref="popover4"
-                      placement="bottom"
-                      width="400"
-                      trigger="click">
+                ref="popover4"
+                class="showCollect"
+                placement="bottom"
+                width="400"
+                trigger="click"
+              >
                 <el-table :data="collection" :show-header="false">
                   <el-table-column width="45" property="date">
                     <template slot-scope="scope">
-                      <i class="el-icon-star-on color-red font-size-25" @click="changeCollection(scope.row)"></i>
+                      <i class="el-icon-star-on color-red font-size-25" @click="changeCollection(scope.row)" />
                     </template>
                   </el-table-column>
-                  <el-table-column property="title" class="collect-item-text"></el-table-column>
+                  <el-table-column property="title" class="collect-item-text" />
                 </el-table>
               </el-popover>
-              <el-button v-popover:popover4 ><img src="@/assets/images/list1.png"/>快速收藏</el-button>
+              <el-button v-popover:popover4><img src="@/assets/images/list1.png">快速收藏</el-button>
             </div>
           </div>
         </div>
       </div>
       <app-main />
       <!--<right-panel v-if="showSettings">-->
-        <!--设置-->
-        <!--<settings />-->
+      <!--设置-->
+      <!--<settings />-->
       <!--</right-panel>-->
     </div>
   </div>
@@ -60,13 +61,13 @@ export default {
     Breadcrumb
   },
   mixins: [ResizeMixin],
-  data(){
+  data() {
     return {
-      //收藏列表
-      collectionData:[
-        {id:1,title:"德国跨界创新实验室世锦赛"},
-        {id:2,title:"办公用品申请（文学社)"},
-        {id:3,title:"9月1日12：00进行义工服务"}
+      // 收藏列表
+      collectionData: [
+        { id: 1, title: '德国跨界创新实验室世锦赛' },
+        { id: 2, title: '办公用品申请（文学社)' },
+        { id: 3, title: '9月1日12：00进行义工服务' }
       ]
     }
   },
@@ -77,7 +78,7 @@ export default {
       showSettings: state => state.settings.showSettings,
       needTagsView: state => state.settings.tagsView,
       fixedHeader: state => state.settings.fixedHeader,
-      collection: state => state.user.collection,
+      collection: state => state.user.collection
     }),
     classObj() {
       return {
@@ -92,9 +93,9 @@ export default {
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
     },
-    //收藏切换
-    changeCollection(param){
-      this.$store.commit("user/POP_COLLECTION",param);
+    // 收藏切换
+    changeCollection(param) {
+      this.$store.commit('user/POP_COLLECTION', param)
     }
   }
 }

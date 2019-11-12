@@ -16,17 +16,17 @@
               type="text"
               icon="el-icon-close"
               class="closeBtn"
-            ></el-button>
+            />
           </div>
 
           <el-row type="flex" class="classRow">
             <el-col :span="12">
-              <div id="chart1"></div>
+              <div id="chart1" />
             </el-col>
             <el-col :span="4">
               <ul class="show-info text-right">
                 <li class="title">
-                    <svg-icon icon-class="user" class="margin-right-10"/>人数
+                  <svg-icon icon-class="user" class="margin-right-10" />人数
                 </li>
                 <li>考勤签到</li>
                 <li>请假</li>
@@ -54,30 +54,30 @@
               type="text"
               icon="el-icon-close"
               class="closeBtn"
-            ></el-button>
+            />
           </div>
-          <div id="chart2"></div>
+          <div id="chart2" />
         </el-card>
       </el-col>
     </el-row>
     <div class="filter-container">
       <el-form :inline="true" :model="formInline">
         <el-form-item label="学号">
-          <el-input v-model="formInline.account" placeholder="请输入学号"></el-input>
+          <el-input v-model="formInline.account" placeholder="请输入学号" />
         </el-form-item>
         <el-form-item label="姓名">
-          <el-input v-model="formInline.name" placeholder="请输入姓名"></el-input>
+          <el-input v-model="formInline.name" placeholder="请输入姓名" />
         </el-form-item>
         <el-form-item label="籍贯">
           <el-select v-model="formInline.address" placeholder="--选择单选内容--">
-            <el-option label="选择单选内容" value=""></el-option>
-            <el-option v-for="item in dataList" :label="item.address" :value="item.address"></el-option>
+            <el-option label="选择单选内容" value="" />
+            <el-option v-for="item in dataList" :label="item.address" :value="item.address" />
             <!--<el-option label="广东深圳" value="广东深圳"></el-option>-->
           </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="checkSubmit">查询</el-button>
-          <el-button @click="handleInputConfirm" >保存</el-button>
+          <el-button @click="handleInputConfirm">保存</el-button>
         </el-form-item>
         <el-form-item class="fl-right">
           <el-button type="primary">新增</el-button>
@@ -88,7 +88,7 @@
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <span class="titleText">
-                <i class="el-icon-time margin-right-10"></i>历史记录
+                <i class="el-icon-time margin-right-10" />历史记录
               </span>
               <el-button style="float: right; padding: 3px 0;color:#303133;" type="text" @click="clearTag">清空</el-button>
             </div>
@@ -98,12 +98,12 @@
               closable
               @close="handleClose(tag)"
               @click="handleClick(tag)"
-              >
-            {{(tag.name?tag.name:'')+(tag.name&&tag.address?'+':'')+(tag.address?tag.address:'')}}</el-tag>
+            >
+              {{ (tag.name?tag.name:'')+(tag.name&&tag.address?'+':'')+(tag.address?tag.address:'') }}</el-tag>
           </el-card>
         </el-col>
         <el-col :span="14">
-          <el-button type="primary" @click="intoNewPage" class="datAnalysis">数据填写分析</el-button>
+          <el-button type="primary" class="datAnalysis" @click="intoNewPage('/teacher/dataAnalysis')">数据填写分析</el-button>
         </el-col>
       </el-row>
     </div>
@@ -116,15 +116,15 @@
       style="width: 100%;"
       class="tableBox"
     >
-      <el-table-column label="学号" prop="account" align="center"></el-table-column>
-      <el-table-column label="姓名" prop="name" align="center"></el-table-column>
-      <el-table-column label="联系方式" prop="phone" align="center"></el-table-column>
-      <el-table-column label="证件号" prop="idCard" align="center"></el-table-column>
-      <el-table-column label="籍贯" prop="address" align="center"></el-table-column>
+      <el-table-column label="学号" prop="account" align="center" />
+      <el-table-column label="姓名" prop="name" align="center" />
+      <el-table-column label="联系方式" prop="phone" align="center" />
+      <el-table-column label="证件号" prop="idCard" align="center" />
+      <el-table-column label="籍贯" prop="address" align="center" />
       <el-table-column label="操作" prop="account" align="center">
         <template slot-scope="scope">
           <el-button type="text">修改</el-button>
-          <el-button type="text">查看</el-button>
+          <el-button type="text" @click="intoNewPage('/teacher/studentDetail')">查看</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -139,25 +139,25 @@
 </template>
 
 <script>
-import echarts from "echarts";
-require("echarts/theme/macarons"); // echarts theme
+import echarts from 'echarts'
+require('echarts/theme/macarons'); // echarts theme
 // import resize from './mixins/resize'
 
-import Pagination from "@/components/Pagination"; // secondary package based on el-pagination
-var colorList = ['#57a2d7',"#8adce4","#fada73","#f3a287","#d26cad","#e1bfee","#817ce3","#96bfff"]; //echarts color
+import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+var colorList = ['#57a2d7', '#8adce4', '#fada73', '#f3a287', '#d26cad', '#e1bfee', '#817ce3', '#96bfff'] // echarts color
 
 export default {
-  name: "teacher",
+  name: 'Teacher',
   components: { Pagination },
   data() {
     return {
       menuIndex: 1,
       formInline: {
-        account: "",
-        num: "",
-        address: ""
+        account: '',
+        num: '',
+        address: ''
       },
-        provinceList:[],//籍贯列表
+      provinceList: [], // 籍贯列表
       tags: [
         // { name: "邓丽", address: "河北省" },
         // { name: "魏娜", address: "" },
@@ -165,91 +165,28 @@ export default {
       ],
       dataList: [
         {
-          account: "2011002135452001",
-          name: "王生安",
-          phone: "1356667778",
-          idCard: "4418212313142452",
-          address: "广东深圳"
-        },
-        {
-          account: "2011002135452001",
-          name: "王生安",
-          phone: "1356667778",
-          idCard: "4418212313142452",
-          address: "广东深圳"
-        },
-        {
-          account: "2011002135452001",
-          name: "王生安",
-          phone: "1356667778",
-          idCard: "4418212313142452",
-          address: "广东深圳"
-        },
-        {
-          account: "2011002135452001",
-          name: "王生安",
-          phone: "1356667778",
-          idCard: "4418212313142452",
-          address: "广东深圳"
-        },
-        {
-          account: "2011002135452001",
-          name: "王生安",
-          phone: "1356667778",
-          idCard: "4418212313142452",
-          address: "广东深圳"
-        },
-        {
-          account: "2011002135452001",
-          name: "王生安",
-          phone: "1356667778",
-          idCard: "4418212313142452",
-          address: "广东深圳"
-        },
-        {
-          account: "2011002135452001",
-          name: "王生安",
-          phone: "1356667778",
-          idCard: "4418212313142452",
-          address: "广东深圳"
-        },
-        {
-          account: "2011002135452001",
-          name: "白包",
-          phone: "1356667778",
-          idCard: "4418212313142452",
-          address: "广东深圳"
-        },
-        {
-          account: "2011002135452001",
-          name: "王生安",
-          phone: "1356667778",
-          idCard: "4418212313142452",
-          address: "广东深圳"
-        },
-        {
-          account: "2011002135452001",
-          name: "王生安",
-          phone: "1356667778",
-          idCard: "4418212313142452",
-          address: "广东深圳"
+          account: '2011002135452001',
+          name: '王生安',
+          phone: '1356667778',
+          idCard: '4418212313142452',
+          address: '广东深圳'
         }
       ],
       tableData: [],
       listLoading: false,
-      total: 10, //总数
+      total: 10, // 总数
       listQuery: {
         page: 1,
         limit: 10
       },
-      chart1: null, //班级分析echart
-      chart2: null //学生分析echart
-    };
+      chart1: null, // 班级分析echart
+      chart2: null // 学生分析echart
+    }
   },
   mounted() {
     this.initChart1();
     this.initChart2();
-     this.checkSubmit()
+    this.checkSubmit();
     // this.$nextTick(() => {
     //     this.initChart()
     // })
@@ -259,70 +196,70 @@ export default {
   },
   beforeDestroy() {
     if (!this.chart2 && !this.chart1) {
-      return;
+      return
     }
     this.chart1.dispose();
     this.chart1 = null;
     this.chart2.dispose();
-    this.chart2 = null;
+    this.chart2 = null
   },
   methods: {
     // 设置假数据
     getMockData() {
       const obj = this.$Mock.mock({
-        'list|12':[
+        'list|12': [
           {
-             account: /(201100)\d{10}/,
-          name: "@cname()",
-          phone: /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/,
-          idCard: "@id()",
-          address: "@province()"
+            account: /(201100)\d{10}/,
+            name: '@cname()',
+            phone: /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/,
+            idCard: '@id()',
+            address: '@province()'
           }
         ]
       });
       this.dataList = obj.list;
-      console.log(this.dataList)
+      // console.log(this.dataList)
     },
-      handleClick(tag) { // 点击标签
-        console.log(tag);
-        for(let key in tag) {
-          // this.formInline[key] = tag[key]
-          this.$set(this.formInline,key,tag[key])
-        }
-      },
-      // 清空标签
-      clearTag(){
-        this.tags = [];
-      },
-      intoNewPage() { // 跳转新页面
-        this.$intoNewPage('dataAnalysis');
-      },
-       handleInputConfirm() { // 添加新标签
-        let arr = [];
-      for (let val in this.formInline) {
-        arr.push(this.formInline[val]);
+    handleClick(tag) { // 点击标签
+      console.log(tag)
+      for (const key in tag) {
+        // this.formInline[key] = tag[key]
+        this.$set(this.formInline, key, tag[key])
       }
-        if (arr.some(item => item !== "")) {
-            let obj = {}
-            for(let key in this.formInline) {
-                obj[key] = this.formInline[key]
-            }
-          // this.tags.push(obj);
-          this.$set(this.tags,this.tags.length,obj);
+    },
+    // 清空标签
+    clearTag() {
+      this.tags = []
+    },
+    intoNewPage(params) { // 跳转新页面
+      this.$intoNewPage(params);
+    },
+    handleInputConfirm() { // 添加新标签
+      const arr = []
+      for (const val in this.formInline) {
+        arr.push(this.formInline[val])
+      }
+      if (arr.some(item => item !== '')) {
+        const obj = {}
+        for (const key in this.formInline) {
+          obj[key] = this.formInline[key]
         }
-        // this.inputVisible = false;
-        // this.inputValue = '';
-      },
-      handleClose(tag) { // 删除标签
-         this.tags.splice(this.tags.indexOf(tag), 1);
-      },
+        // this.tags.push(obj);
+        this.$set(this.tags, this.tags.length, obj)
+      }
+      // this.inputVisible = false;
+      // this.inputValue = '';
+    },
+    handleClose(tag) { // 删除标签
+      this.tags.splice(this.tags.indexOf(tag), 1)
+    },
     // 班级
     initChart1() {
-      this.chart1 = echarts.init(document.getElementById("chart1"));
+      this.chart1 = echarts.init(document.getElementById('chart1'))
       this.chart1.setOption({
         tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
+          trigger: 'item',
+          formatter: '{a} <br/>{b} : {c} ({d}%)'
         },
         // legend: {
         //     left: 'center',
@@ -331,22 +268,22 @@ export default {
         // },
         series: [
           {
-            name: "班级情况",
-            type: "pie",
-            radius: ["50%", "70%"],
+            name: '班级情况',
+            type: 'pie',
+            radius: ['50%', '70%'],
             avoidLabelOverlap: false,
             label: {
               normal: {
                 show: false,
-                position: "center"
+                position: 'center'
               },
               emphasis: {
                 show: true,
                 textStyle: {
-                  fontSize: "30",
-                  fontWeight: "bold"
+                  fontSize: '30',
+                  fontWeight: 'bold'
                 }
-              },
+              }
 
             },
             labelLine: {
@@ -354,32 +291,32 @@ export default {
                 show: false
               }
             },
-              itemStyle:{
-                  normal:{
-                      //颜色
-                      color:function (params) {
-                          return colorList[params.dataIndex];
-                      }
-                  }
-              },
+            itemStyle: {
+              normal: {
+                // 颜色
+                color: function(params) {
+                  return colorList[params.dataIndex]
+                }
+              }
+            },
             data: [
-              { value: 40, name: "考勤签到" },
-              { value: 240, name: "请假" },
-              { value: 149, name: "缺勤" }
+              { value: 40, name: '考勤签到' },
+              { value: 240, name: '请假' },
+              { value: 149, name: '缺勤' }
             ],
-            animationEasing: "cubicInOut",
+            animationEasing: 'cubicInOut',
             animationDuration: 2600
           }
         ]
-      });
+      })
     },
     // 学生信息分析echart
     initChart2() {
-      this.chart2 = echarts.init(document.getElementById("chart2"));
+      this.chart2 = echarts.init(document.getElementById('chart2'))
       this.chart2.setOption({
         tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
+          trigger: 'item',
+          formatter: '{a} <br/>{b} : {c} ({d}%)'
         },
         // legend: {
         //     left: 'center',
@@ -388,35 +325,35 @@ export default {
         // },
         series: [
           {
-            name: "学生信息比例分析",
-            type: "pie",
-            radius: "65%",
-            center: ["50%", "50%"],
-            selectedMode: "single",
-              itemStyle:{
-                normal:{
-                  //颜色
-                  color:function (params) {
-                    return colorList[params.dataIndex];
-                  }
+            name: '学生信息比例分析',
+            type: 'pie',
+            radius: '65%',
+            center: ['50%', '50%'],
+            selectedMode: 'single',
+            itemStyle: {
+              normal: {
+                // 颜色
+                color: function(params) {
+                  return colorList[params.dataIndex]
                 }
-              },
-              label:{
-                color:"#000000",
-                fontSize:16
-              },
+              }
+            },
+            label: {
+              color: '#000000',
+              fontSize: 16
+            },
             data: [
-              { value: 320, name: "张三" },
-              { value: 240, name: "李力" },
-              { value: 149, name: "王灵灵" },
-              { value: 100, name: "刘生静" },
-              { value: 59, name: "陆尧新" }
+              { value: 320, name: '张志立' },
+              { value: 240, name: '李力' },
+              { value: 149, name: '王灵玲' },
+              { value: 100, name: '刘生静' },
+              { value: 59, name: '陆尧新' }
             ],
-            animationEasing: "cubicInOut",
+            animationEasing: 'cubicInOut',
             animationDuration: 2600
           }
         ]
-      });
+      })
     },
     // 查询
     checkSubmit() {
@@ -428,9 +365,9 @@ export default {
               String(this.formInline[key])
                 .trim()
                 .toLowerCase()
-            );
-        });
-      });
+            )
+        })
+      })
     },
     // 保存
     saveSubmit() {},
@@ -440,8 +377,8 @@ export default {
       setTimeout(() => {
         // this.dataList = this.dataList.concat(this.dataList);
         // this.total = 100;
-        this.listLoading = false;
-      }, 1000);
+        this.listLoading = false
+      }, 1000)
       // fetchList(this.listQuery).then(response => {
       //     this.dataList = response.data.items
       //     this.total = response.data.total
@@ -455,7 +392,7 @@ export default {
       // });
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

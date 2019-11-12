@@ -9,7 +9,7 @@
         <div class="eventBox">
           <div class="eventBox1">
             <router-link to="/student/index" class="userInfo">
-              <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar1" >{{name}}
+              <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar1">{{ name }}
             </router-link>
             <a href="javascript:void(0)" class="loginOut" @click="logout">退出</a>
           </div>
@@ -29,12 +29,12 @@
             <el-col v-if="item.status" :xs="24" :md="12" :lg="6" class="list-content-item-list">
               <div class="list-content-item pointer" :class="item.bg" @mouseleave="leaveItem($event)" @click="clickItem(item)">
                 <div class="item-header">
-                <span class="color-block-box">
-                  <span class="color-block orange" @click.stop="changeItem(item,'bg-orange')" />
-                  <span class="color-block blue" @click.stop="changeItem(item,'bg-blue')" />
-                  <span class="color-block green" @click.stop="changeItem(item,'bg-green')" />
-                  <span class="color-block red" @click.stop="changeItem(item,'bg-red')" />
-                </span>
+                  <span class="color-block-box">
+                    <span class="color-block orange" @click.stop="changeItem(item,'bg-orange')" />
+                    <span class="color-block blue" @click.stop="changeItem(item,'bg-blue')" />
+                    <span class="color-block green" @click.stop="changeItem(item,'bg-green')" />
+                    <span class="color-block red" @click.stop="changeItem(item,'bg-red')" />
+                  </span>
                   <i class="el-icon-delete fl-right margin-left-10 pointer" @click.stop="deleteItem(item)" />
                   <i class="el-icon-edit fl-right pointer" @click.stop="editItem($event)" />
                 </div>
@@ -162,12 +162,12 @@
             <el-checkbox v-model="showDesktop" label="1">显示</el-checkbox>
           </div>
           <ul class="listBox">
-            <li v-for="item in selectList" >{{ item.title }} <i class="el-icon-error fl-right" @click="deleteSelect(item)"/></li>
+            <li v-for="item in selectList">{{ item.title }} <i class="el-icon-error fl-right" @click="deleteSelect(item)" /></li>
           </ul>
         </el-col>
         <el-col :span="24" class="selectBox">
           <div class="title">
-            <span class="titleText">{{currentType.name}}</span>
+            <span class="titleText">{{ currentType.name }}</span>
           </div>
           <ul class="listBox">
             <li v-for="item in allSelectList" :class="{'selected-item':item.status}" @click="changeSelect(item)">{{ item.title }} <i class="el-icon-check fl-right" /></li>
@@ -191,18 +191,18 @@ export default {
   computed: {
     ...mapGetters([
       'avatar',
-       'name'
+      'name'
     ])
   },
   filters: {
     isTrue(x) {
-      var flag = false;
-      if(this.selectList.length>0){
+      var flag = false
+      if (this.selectList.length > 0) {
         this.selectList.forEach(function(item, i) {
           if (item == x) {
             flag = true
           }
-        });
+        })
       }
       return flag
     }
@@ -213,8 +213,8 @@ export default {
       typeList: [
         { type: 'student', name: '学生事务',
           list: [
-            { id: '7', icon: 'xxgl.png', title: '信息管理', description: '学生事务', bg: '', status: true, href:"/student/index" },
-            { id: '3', icon: 'sssq.png', title: '宿舍申请', description: '学生事务', bg: '', status: true, href:"/student/selectRoom"},
+            { id: '7', icon: 'xxgl.png', title: '信息管理', description: '学生事务', bg: '', status: true, href: '/student/index' },
+            { id: '3', icon: 'sssq.png', title: '宿舍申请', description: '学生事务', bg: '', status: true, href: '/student/selectRoom' },
             { id: '1', icon: 'zxzx.png', title: '资助中心', description: '帮助学生', bg: '', status: true },
             { id: '2', icon: 'wjcf.png', title: '违纪处分', description: '学生事务', bg: '', status: true },
             { id: '4', icon: 'zyfw.png', title: '志愿服务', description: '学生事务', bg: '', status: true },
@@ -232,47 +232,48 @@ export default {
           ] },
         { type: 'teacher', name: '教师事务',
           list: [
-            { id: '5', icon: 'lxgl2.png', title: '教学管理', description: '教师事务', bg: '' ,status: true, href: '/teacher/index'},
-            { id: '3', icon: 'xxsh2.png', title: '宿舍管理', description: '教师事务', bg: '' ,status: true, href: '/teacher/adjustment'},
-            { id: '1', icon: 'jsys1.png', title: '校务信箱', description: '教师事务', bg: '' ,status: true},
-            { id: '2', icon: 'gjjl1.png', title: '国际交流', description: '教师事务', bg: '' ,status: true},
-            { id: '4', icon: 'gjjl1.png', title: '校园网', description: '教师事务', bg: '' ,status: true},
-            { id: '6', icon: 'xkjs.png', title: '停薪留学', description: '教师事务', bg: '' ,status: true},
-            { id: '7', icon: 'xzfc1.png', title: '政工队伍', description: '教师事务', bg: '' ,status: true},
-            { id: '8', icon: 'jxgl1.png', title: '离校管理', description: '教师事务', bg: '' ,status: true},
-            { id: '9', icon: 'gzwx1.png', title: '学科竞赛', description: '教师事务', bg: '' ,status: true},
-            { id: '10', icon: 'txlx1.png', title: '校园生活', description: '教师事务', bg: '' ,status: true},
-            { id: '11', icon: 'kjgl1.png', title: '科技管理', description: '教师事务', bg: '' ,status: true},
-            { id: '12', icon: 'jsys1.png', title: '教师邮箱', description: '教师事务', bg: '' ,status: true},
-            { id: '13', icon: 'xkjs.png', title: '研究生服务', description: '教师事务', bg: '' ,status: true}
+            { id: '5', icon: 'lxgl2.png', title: '教学管理', description: '教师事务', bg: '', status: true, href: '/teacher/index' },
+            { id: '3', icon: 'xxsh2.png', title: '宿舍管理', description: '教师事务', bg: '', status: true, href: '/teacher/adjustment' },
+            { id: '1', icon: 'jsys1.png', title: '校务信箱', description: '教师事务', bg: '', status: true },
+            { id: '2', icon: 'gjjl1.png', title: '国际交流', description: '教师事务', bg: '', status: true },
+            { id: '4', icon: 'gjjl1.png', title: '校园网', description: '教师事务', bg: '', status: true },
+            { id: '6', icon: 'xkjs.png', title: '停薪留学', description: '教师事务', bg: '', status: true },
+            { id: '7', icon: 'xzfc1.png', title: '政工队伍', description: '教师事务', bg: '', status: true },
+            { id: '8', icon: 'jxgl1.png', title: '离校管理', description: '教师事务', bg: '', status: true },
+            { id: '9', icon: 'gzwx1.png', title: '学科竞赛', description: '教师事务', bg: '', status: true },
+            { id: '10', icon: 'txlx1.png', title: '校园生活', description: '教师事务', bg: '', status: true },
+            { id: '11', icon: 'kjgl1.png', title: '科技管理', description: '教师事务', bg: '', status: true },
+            { id: '12', icon: 'jsys1.png', title: '教师邮箱', description: '教师事务', bg: '', status: true },
+            { id: '13', icon: 'xkjs.png', title: '研究生服务', description: '教师事务', bg: '', status: true }
           ] },
         { type: 'personnel', name: '人事事务',
           list: [
-            { id: '1', icon: 'rsxx1.png', title: '人事信息', description: '人事事务', bg: '' ,status: true, href: '/humanAffairs/index'},
-            { id: '15', icon: 'xysh2.png', title: '权限管理', description: '人事事务', bg: '' ,status: true, href: '/humanAffairs/permission'},
-            { id: '15', icon: 'jgbg2.png', title: '数据统计', description: '人事事务', bg: '' ,status: true, href: '/humanAffairs/operating'},
-            { id: '2', icon: 'rzgl2.png', title: '入职管理', description: '人事事务', bg: '' ,status: true},
-            { id: '3', icon: 'shgl2.png', title: '审核中心', description: '人事事务', bg: '' ,status: true},
-            { id: '4', icon: 'rck2.png', title: '人才库', description: '人事事务', bg: '' ,status: true},
-            { id: '5', icon: 'ryxz2.png', title: '人员薪资', description: '人事事务', bg: '' ,status: true},
-            { id: '6', icon: 'bwry2.png', title: '编外人员', description: '人事事务', bg: '' ,status: true},
-            { id: '7', icon: 'jgbg2.png', title: '机构变更', description: '人事事务', bg: '' ,status: true},
-            { id: '8', icon: 'htgl2.png', title: '合同管理', description: '人事事务', bg: '' ,status: true},
-            { id: '9', icon: 'bggs2.png', title: '报告公示', description: '人事事务', bg: '' ,status: true},
-            { id: '10', icon: 'lxlc2.png', title: '离校流程', description: '人事事务', bg: '' ,status: true},
-            { id: '11', icon: 'shhzx2.png', title: '审核和中心', description: '人事事务', bg: '' ,status: true},
-            { id: '12', icon: 'xxgl2.png', title: '信息管理', description: '人事事务', bg: '' ,status: true},
-            { id: '13', icon: 'jljl2.png', title: '经历记录', description: '人事事务', bg: '' ,status: true},
-            { id: '14', icon: 'xzbz2.png', title: '薪资标准', description: '人事事务', bg: '',status: true }
+            { id: '1', icon: 'rsxx1.png', title: '人事信息', description: '人事事务', bg: '', status: true, href: '/humanAffairs/index' },
+            { id: '15', icon: 'xysh2.png', title: '权限管理', description: '人事事务', bg: '', status: true, href: '/humanAffairs/permission' },
+            { id: '15', icon: 'jgbg2.png', title: '数据统计', description: '人事事务', bg: '', status: true, href: '/humanAffairs/operating' },
+            { id: '2', icon: 'rzgl2.png', title: '入职管理', description: '人事事务', bg: '', status: true },
+            { id: '3', icon: 'shgl2.png', title: '审核中心', description: '人事事务', bg: '', status: true },
+            { id: '4', icon: 'rck2.png', title: '人才库', description: '人事事务', bg: '', status: true },
+            { id: '5', icon: 'ryxz2.png', title: '人员薪资', description: '人事事务', bg: '', status: true },
+            { id: '6', icon: 'bwry2.png', title: '编外人员', description: '人事事务', bg: '', status: true },
+            { id: '7', icon: 'jgbg2.png', title: '机构变更', description: '人事事务', bg: '', status: true },
+            { id: '8', icon: 'htgl2.png', title: '合同管理', description: '人事事务', bg: '', status: true },
+            { id: '9', icon: 'bggs2.png', title: '报告公示', description: '人事事务', bg: '', status: true },
+            { id: '10', icon: 'lxlc2.png', title: '离校流程', description: '人事事务', bg: '', status: true },
+            { id: '11', icon: 'shhzx2.png', title: '审核和中心', description: '人事事务', bg: '', status: true },
+            { id: '12', icon: 'xxgl2.png', title: '信息管理', description: '人事事务', bg: '', status: true },
+            { id: '13', icon: 'jljl2.png', title: '经历记录', description: '人事事务', bg: '', status: true },
+            { id: '14', icon: 'xzbz2.png', title: '薪资标准', description: '人事事务', bg: '', status: true }
           ]
         },
         { type: 'management', name: '管理事务',
           list: [
-            { id: '1', icon: 'lxgl2.png', title: '主数据管理', description: '管理事务', bg: '' ,status: true,outerChain:true,href:"http://zz.aotain.com:9097/"},
-            { id: '2', icon: 'rzgl2.png', title: 'API管理工具', description: '管理事务', bg: '' ,status: true,outerChain:true,href:"http://zz.aotain.com:8040/management_data"},
-            { id: '3', icon: 'jgbg2.png', title: '智能数据分析', description: '管理事务', bg: '' ,status: true,outerChain:true,href:"http://zz.aotain.com:9099/"},
-            { id: '4', icon: 'shhzx2.png', title: '身份管理平台', description: '管理事务', bg: '' ,status: true,outerChain:true,href:"http://zz.aotain.com:8055/home1"},
-            { id: '5', icon: 'xxkc.png', title: '运行监控数据', description: '管理事务', bg: '',status: true,href:"/operating/index"}
+            { id: '1', icon: 'lxgl2.png', title: '主数据管理', description: '管理事务', bg: '', status: true, outerChain: true, href: 'http://zz.aotain.com:9097/' },
+            { id: '2', icon: 'rzgl2.png', title: 'API管理工具', description: '管理事务', bg: '', status: true, outerChain: true, href: 'http://zz.aotain.com:8040/management_data' },
+            { id: '3', icon: 'jgbg2.png', title: '智能数据分析', description: '管理事务', bg: '', status: true, outerChain: true, href: 'http://zz.aotain.com:9099/' },
+            { id: '4', icon: 'shhzx2.png', title: '身份管理平台', description: '管理事务', bg: '', status: true, outerChain: true, href: 'http://zz.aotain.com:8055/home1' },
+            { id: '4', icon: 'lxgl.png', title: '大屏展示', description: '管理事务', bg: '', status: true, outerChain: true, href: 'http://zz.aotain.com:9098/' },
+            { id: '5', icon: 'sjjk.png', title: '运行监控数据', description: '管理事务', bg: '', status: true, href: '/operating/index' }
           ]
         }
       ],
@@ -280,46 +281,40 @@ export default {
       currentType: {},
       // 推荐应用列表
       recommendList: [
-        { text: '学习异动申请', 'score': 0 ,icon:'jxgl1.png'},
-        { text: '课程补休重修', 'score': 3 ,icon:'xkjs.png'},
-        { text: '校园卡开通', 'score': 3 ,icon:'zxzx.png'},
-        { text: '在校证明打印', 'score': 3 ,icon:'xzbz2.png'},
-        { text: '教务系统密码', 'score': 3 ,icon:'xysh2.png'},
-        { text: '学生证补办', 'score': 4 ,icon:'rzgl2.png'},
-        { text: '成绩证明打印', 'score': 3 ,icon:'xzbz2.png'},
-        { text: '英语等级测试', 'score': 5 ,icon:'xxkc.png'}
+        { text: '学习异动申请', 'score': 0, icon: 'jxgl1.png' },
+        { text: '课程补休重修', 'score': 3, icon: 'xkjs.png' },
+        { text: '校园卡开通', 'score': 3, icon: 'zxzx.png' },
+        { text: '在校证明打印', 'score': 3, icon: 'xzbz2.png' },
+        { text: '教务系统密码', 'score': 3, icon: 'xysh2.png' },
+        { text: '学生证补办', 'score': 4, icon: 'rzgl2.png' },
+        { text: '成绩证明打印', 'score': 3, icon: 'xzbz2.png' },
+        { text: '英语等级测试', 'score': 5, icon: 'xxkc.png' }
       ],
       dialogVisible: false, // 个性界面是否显示
       showDesktop: true, // 自定义显示
-      allSelectList:[],//对应事务的所有列表
+      allSelectList: [], // 对应事务的所有列表
       selectList: [], // 选择的自定义列表
       selectAll: false
     }
   },
-  mounted() {
-    this.currentType = this.typeList[0];
-    // for (var i = 0; i < 4; i++) {
-    //   this.selectList.push(this.currentType[i]);
-    // }
-  },
-  watch:{
+  watch: {
     // 监听模态框的显示，对selectList处理
-    dialogVisible(newValue){
-      if(newValue){
+    dialogVisible(newValue) {
+      if (newValue) {
         this.allSelectList = JSON.parse(JSON.stringify(this.currentType.list));
         var __this = this;
-        this.allSelectList.forEach(function(item){
-          if(item.status){
-            __this.selectList.push(item);
+        this.allSelectList.forEach(function(item) {
+          if (item.status) {
+            __this.selectList.push(item)
           }
-        });
-      }else{
+        })
+      } else {
         this.selectList = [];
-        this.allSelectList = [];
+        this.allSelectList = []
       }
     },
     //
-    selectList(newValue){
+    selectList(newValue) {
       // if(newValue == this.AllSelectList){
       //   this.selectAll = true;
       // }else{
@@ -327,23 +322,29 @@ export default {
       // }
     }
   },
+  mounted() {
+    this.currentType = this.typeList[0]
+    // for (var i = 0; i < 4; i++) {
+    //   this.selectList.push(this.currentType[i]);
+    // }
+  },
   methods: {
     async logout() {
       await this.$store.dispatch('user/logout');
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`);
+      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     },
     // 点击事务
-    clickItem(params){
-      if(params.outerChain){
-        window.open(params.href,"_blank");
-      }else{
-        if(!params.href)return
-        this.$intoNewPage(params.href);
+    clickItem(params) {
+      if (params.outerChain) {
+        window.open(params.href, '_blank')
+      } else {
+        if (!params.href) return
+        this.$intoNewPage(params.href)
       }
     },
     // 删除事务
     deleteItem(params) {
-      var len = this.currentType.list.length;
+      var len = this.currentType.list.length
       for (let i = 0; i <= len - 1; i++) {
         if (this.currentType.list[i] == params) {
           this.currentType.list.splice(i, 1)
@@ -352,41 +353,39 @@ export default {
     },
     // 编辑列表项事务
     editItem(e) {
-
-      var el = e.target.parentNode.getElementsByClassName('color-block-box')[0];
-      if(el.style.display=='none'){
-        el.style.display = 'inline-block';
-      }else{
-        el.style.display = 'none';
+      var el = e.target.parentNode.getElementsByClassName('color-block-box')[0]
+      if (el.style.display == 'none') {
+        el.style.display = 'inline-block'
+      } else {
+        el.style.display = 'none'
       }
-
     },
-    //鼠标离开列表项事务
-    leaveItem(e){
-      e.target.parentNode.getElementsByClassName('color-block-box')[0].style.display = 'none';
+    // 鼠标离开列表项事务
+    leaveItem(e) {
+      e.target.parentNode.getElementsByClassName('color-block-box')[0].style.display = 'none'
     },
     // 列表项事务的颜色改变
     changeItem(params, color) {
       params.bg = color
     },
-    //拖拽的事件setData
+    // 拖拽的事件setData
     setData(dataTransfer) {
       // to avoid Firefox bug
       // Detail see : https://github.com/RubaXa/Sortable/issues/1012
       dataTransfer.setData('Text', '')
     },
-    //个性桌面的关闭处理
-    dialogClose(){
-      this.dialogVisible =false;
+    // 个性桌面的关闭处理
+    dialogClose() {
+      this.dialogVisible = false
     },
     // 个性桌面的所有列表项点击
     changeSelect(params) {
-      var flag = false;
+      var flag = false
       this.selectList.forEach(function(item, i) {
         if (item.id === params.id) {
-          flag = true ;
+          flag = true
         }
-      });
+      })
       if (flag) {
         this.deleteSelect(params)
       } else {
@@ -395,14 +394,14 @@ export default {
     },
     // 个性桌面的添加
     addSelect(params) {
-      var flag = false;
+      var flag = false
       this.selectList.forEach(function(item, i) {
-        if (item.id == params.id){
-          flag = true;
+        if (item.id == params.id) {
+          flag = true
         }
-      });
-      if (!flag){
-        this.selectList.push(params);
+      })
+      if (!flag) {
+        this.selectList.push(params)
       }
       params.status = true
     },
@@ -410,19 +409,19 @@ export default {
     deleteSelect(params) {
       this.selectList.forEach(function(item, i, arr) {
         if (item.id == params.id) {
-          arr.splice(i, 1);
+          arr.splice(i, 1)
         }
-      });
+      })
       this.allSelectList.forEach(function(item, i, arr) {
         if (item.id == params.id) {
-          item.status = false;
+          item.status = false
         }
-      });
+      })
     },
-    //确定个性桌面的选择
-    confirmSelect(){
-      this.currentType.list = this.allSelectList;
-      this.dialogVisible = false;
+    // 确定个性桌面的选择
+    confirmSelect() {
+      this.currentType.list = this.allSelectList
+      this.dialogVisible = false
     }
   }
 }
@@ -477,10 +476,11 @@ export default {
             margin-top:10px;
             text-align:right;
             button{
-                background:#cccccc;
+                background:rgba(34, 153, 221, .8);
                 color:#ffffff;
                 padding:8px 35px;
                 font-weight:700;
+                border:none;
             }
         }
         .menuList{

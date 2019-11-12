@@ -1,64 +1,64 @@
 <template>
-    <div class="board-column">
-        <div class="board-column-header">
-            {{ headerText }}
-        </div>
-        <div v-for="(element,i) in list" :key="element.id" class="board-item" :class="{'actived':currentData == element,'empty':!element.name}" @click="clickItem(element)">
-            <!--{{ i+1 +" "+( element.name?element.name:"空") }} <i class=" el-icon-circle-check font-size-20" v-if="currentData == element"></i>-->
-            <div class="left">{{i+1+". "}}</div>
-            <div class="right info">
-                <p>{{ element.account }}</p>
-                <p>{{ element.name ?element.name:"空"}}</p>
-            </div>
-        </div>
+  <div class="board-column">
+    <div class="board-column-header">
+      {{ headerText }}
     </div>
+    <div v-for="(element,i) in list" :key="element.id" class="board-item" :class="{'actived':currentData == element,'empty':!element.name}" @click="clickItem(element)">
+      <!--{{ i+1 +" "+( element.name?element.name:"空") }} <i class=" el-icon-circle-check font-size-20" v-if="currentData == element"></i>-->
+      <div class="left">{{ i+1+". " }}</div>
+      <div class="right info">
+        <p>{{ element.account }}</p>
+        <p>{{ element.name ?element.name:"空" }}</p>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: "board",
-    props: {
-        headerText: {
-            type: String,
-            default: 'Header'
-        },
-        options: {
-            type: Object,
-            default() {
-                return {}
-            }
-        },
-        list: {
-            type: Array,
-            default() {
-                return []
-            }
-        },
-        dialogStatus:{
-            type: Boolean,
-            default(){
-                return false
-            }
-        }
+  name: 'Board',
+  props: {
+    headerText: {
+      type: String,
+      default: 'Header'
     },
-    data(){
-        return{
-            currentData: ''
-        }
+    options: {
+      type: Object,
+      default() {
+        return {}
+      }
     },
-    watch: {
-        dialogStatus(newVal){
-            if(!newVal) this.currentData = '';
-        }
+    list: {
+      type: Array,
+      default() {
+        return []
+      }
     },
-    methods:{
-        clickItem(params){
-            if(params.name ==""){
-                this.currentData = params;
-                this.$emit("parentEvent",params);
-            }
-        }
+    dialogStatus: {
+      type: Boolean,
+      default() {
+        return false
+      }
     }
+  },
+  data() {
+    return {
+      currentData: ''
+    }
+  },
+  watch: {
+    dialogStatus(newVal) {
+      if (!newVal) this.currentData = ''
+    }
+  },
+  methods: {
+    clickItem(params) {
+      if (params.name == '') {
+        this.currentData = params
+        this.$emit('parentEvent', params)
+      }
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>

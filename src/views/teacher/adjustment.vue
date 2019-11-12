@@ -20,6 +20,11 @@
           <el-select v-model="formInline.floor" placeholder="请选择楼层">
             <el-option label="1F" :value="1" />
             <el-option label="2F" :value="2" />
+            <el-option label="3F" :value="3" />
+            <el-option label="4F" :value="4" />
+            <el-option label="5F" :value="5" />
+            <el-option label="6F" :value="6" />
+            <el-option label="7F" :value="7" />
           </el-select>
         </el-form-item>
         <el-form-item label="房间号">
@@ -30,21 +35,23 @@
         </el-form-item>
       </el-form>
     </div>
-    <div class="board" v-show="accountArr || newDormData">
+    <div v-show="showType == 1 && (accountArr || newDormData)" class="board">
       <el-row :gutter="15">
-        <el-col :span="6" v-show="accountArr.title">
+        <el-col v-show="accountArr.title" :span="6">
           <Kanban
             :key="1"
             :list="accountArr.dorm"
+            :accountValue="searchAccount"
             :group="group"
             class="kanban todo"
             :header-text="accountArr.title"
           />
         </el-col>
-        <el-col :span="6" v-show="newDormData.title">
+        <el-col v-show="newDormData.title" :span="6">
           <Kanban
             :key="2"
             :list="newDormData.dorm"
+            :accountValue="searchAccount"
             :group="group"
             class="kanban todo header-green"
             :header-text="newDormData.title"
@@ -52,12 +59,413 @@
         </el-col>
       </el-row>
     </div>
+    <div class="floor" v-show="showType == 0">
+      <div class="floor_son">
+        <div class="left">
+          <h3>7F</h3>
+          <div> <span>已入驻:38</span> </div>
+          <div> <span>空余床位:8</span> </div>
+        </div>
+        <div class="right">
+          <div class="dorm full" >
+            <div class="num">701</div>
+          </div>
+          <div class="dorm" >
+            <div class="num">702</div>
+          </div>
+          <div class="dorm" >
+            <div class="num">703</div>
+
+          </div>
+          <div class="dorm full" >
+            <div class="num">704</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">705</div>
+
+          </div>
+          <div class="dorm full" >
+            <div class="num">706</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">707</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">708</div>
+
+          </div>
+          <div class="dorm full" >
+            <div class="num">709</div>
+
+          </div>
+          <!--<div class="dorm" >-->
+            <!--<div class="num">710</div>-->
+
+          <!--</div>-->
+          <!--<div class="dorm" >-->
+            <!--<div class="num">711</div>-->
+
+          <!--</div>-->
+          <!--<div class="dorm" >-->
+            <!--<div class="num">712</div>-->
+
+          <!--</div>-->
+
+        </div>
+      </div>
+      <div class="floor_son">
+        <div class="left">
+          <h3>6F</h3>
+          <div> <span>已入驻:42</span> </div>
+          <div> <span>空余床位:4</span> </div>
+        </div>
+        <div class="right">
+          <div class="dorm full" >
+            <div class="num">601</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">602</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">603</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">604</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">605</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">606</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">607</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">608</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">609</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">610</div>
+
+          </div>
+          <!--<div class="dorm" >-->
+            <!--<div class="num">611</div>-->
+
+          <!--</div>-->
+          <!--<div class="dorm" >-->
+            <!--<div class="num">612</div>-->
+
+          <!--</div>-->
+
+        </div>
+      </div>
+      <div class="floor_son">
+        <div class="left">
+          <h3>5F</h3>
+          <div> <span>已入驻:42</span> </div>
+          <div> <span>空余床位:4</span> </div>
+        </div>
+        <div class="right">
+          <div class="dorm full" >
+            <div class="num">501</div>
+
+          </div>
+          <div class="dorm full" >
+            <div class="num">502</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">503</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">504</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">505</div>
+
+          </div>
+          <div class="dorm full" >
+            <div class="num">506</div>
+
+          </div>
+          <div class="dorm full" >
+            <div class="num">507</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">508</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">509</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">510</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">511</div>
+
+          </div>
+          <div class="dorm" >
+            <div class="num">512</div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="floor_son">
+      <div class="left">
+        <h3>4F</h3>
+        <div> <span>已入驻:42</span> </div>
+        <div> <span>空余床位:4</span> </div>
+      </div>
+      <div class="right">
+        <div class="dorm full" >
+          <div class="num">401</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">402</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">403</div>
+
+        </div>
+        <div class="dorm full" >
+          <div class="num">404</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">405</div>
+
+        </div>
+        <div class="dorm full" >
+          <div class="num">406</div>
+
+        </div>
+        <div class="dorm full" >
+          <div class="num">407</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">408</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">409</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">410</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">411</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">412</div>
+
+        </div>
+
+      </div>
+    </div> <div class="floor_son">
+      <div class="left">
+        <h3>3F</h3>
+        <div> <span>已入驻:42</span> </div>
+        <div> <span>空余床位:4</span> </div>
+      </div>
+      <div class="right">
+        <div class="dorm " >
+          <div class="num">301</div>
+
+        </div>
+        <div class="dorm full" >
+          <div class="num">302</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">303</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">304</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">305</div>
+
+        </div>
+        <div class="dorm full" >
+          <div class="num">306</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">307</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">308</div>
+
+        </div>
+        <div class="dorm full" >
+          <div class="num">309</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">310</div>
+
+        </div>
+        <div class="dorm full" >
+          <div class="num">311</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">312</div>
+
+        </div>
+
+      </div>
+    </div> <div class="floor_son">
+      <div class="left">
+        <h3>2F</h3>
+        <div> <span>已入驻:42</span> </div>
+        <div> <span>空余床位:4</span> </div>
+      </div>
+      <div class="right">
+        <div class="dorm full" >
+          <div class="num">201</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">202</div>
+
+        </div>
+        <div class="dorm full" >
+          <div class="num">203</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">204</div>
+
+        </div>
+        <div class="dorm full" >
+          <div class="num">205</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">206</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">207</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">208</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num full">209</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">210</div>
+
+        </div>
+        <div class="dorm full" >
+          <div class="num">211</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">212</div>
+
+        </div>
+
+      </div>
+    </div> <div class="floor_son">
+      <div class="left">
+        <h3>1F</h3>
+        <div> <span>已入驻:42</span> </div>
+        <div> <span>空余床位:4</span> </div>
+      </div>
+      <div class="right">
+        <div class="dorm full" >
+          <div class="num">101</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">102</div>
+
+        </div>
+        <div class="dorm full" >
+          <div class="num">103</div>
+
+        </div>
+        <div class="dorm full" >
+          <div class="num">104</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">105</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">106</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">107</div>
+
+        </div>
+        <div class="dorm full" >
+          <div class="num">108</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">109</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">110</div>
+
+        </div>
+        <div class="dorm" >
+          <div class="num">111</div>
+
+        </div>
+        <div class="dorm full" >
+          <div class="num">112</div>
+        </div>
+      </div>
+    </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Kanban from "@/components/Kanban/index";
-import { log } from "util";
+import Kanban from '@/components/Kanban/index'
+import { log } from 'util'
 export default {
   components: {
     Kanban
@@ -65,445 +473,18 @@ export default {
   data() {
     return {
       formInline: {
-        building: "C1栋",
-        floor: "1F",
-        room: "601",
+        building: 'C1栋',
+        floor: '',
+        room: ''
       },
-      account: "201909877001", // 学号
-      group: "name",
+      account: '201909877001', // 搜索框学号
+      searchAccount:"",//查询的学号
+      group: 'name',
       newDormData: [],
-      dormData: [
-        {
-          building: 1,
-          floor: [
-            {
-              floor: 1,
-              room: [
-                {
-                  room: 1,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 2,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 3,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 4,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 5,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 6,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 7,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                }
-              ]
-            },
-            {
-              floor: 2,
-              room: [
-                {
-                  room: 1,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 2,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 3,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 4,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 5,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 6,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 7,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          building: 2,
-          floor: [
-            {
-              floor: 1,
-              room: [
-                {
-                  room: 1,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 2,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 3,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 4,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 5,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 6,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 7,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                }
-              ]
-            },
-            {
-              floor: 2,
-              room: [
-                {
-                  room: 1,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 2,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 3,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 4,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 5,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 6,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                },
-                {
-                  room: 7,
-                  student: [
-                    { name: "李白" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" },
-                    { name: "杜甫" }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      kanbanArr: [
-        [
-          { name: "Mission", id: 1 },
-          { name: "Mission", id: 2 },
-          { name: "Mission", id: 3 },
-          { name: "Mission", id: 4 }
-        ],
-        [
-          { name: "Mission", id: 5 },
-          { name: "Mission", id: 6 },
-          { name: "Mission", id: 7 }
-        ],
-        [
-          { name: "Mission", id: 8 },
-          { name: "Mission", id: 9 },
-          { name: "Mission", id: 10 }
-        ],
-        [
-          { name: "Mission", id: 18 },
-          { name: "Mission", id: 19 },
-          { name: "Mission", id: 20 }
-        ],
-        [
-          { name: "Mission", id: 21 },
-          { name: "Mission", id: 22 },
-          { name: "Mission", id: 23 }
-        ],
-        [
-          { name: "Mission", id: 24 },
-          { name: "Mission", id: 25 },
-          { name: "Mission", id: 26 }
-        ],
-        [
-          { name: "Mission", id: 27 },
-          { name: "Mission", id: 28 },
-          { name: "Mission", id: 29 }
-        ],
-        [
-          { name: "Mission", id: 30 },
-          { name: "Mission", id: 31 },
-          { name: "Mission", id: 32 }
-        ],
-        [
-          { name: "Mission", id: 33 },
-          { name: "Mission", id: 34 },
-          { name: "Mission", id: 35 }
-        ],
-        [
-          { name: "Mission", id: 36 },
-          { name: "Mission", id: 37 },
-          { name: "Mission", id: 38 }
-        ],
-        [
-          { name: "Mission", id: 39 },
-          { name: "Mission", id: 40 },
-          { name: "Mission", id: 41 }
-        ],
-        [
-          { name: "Mission", id: 42 },
-          { name: "Mission", id: 43 },
-          { name: "Mission", id: 44 }
-        ]
-      ],
-      accountArr: [],//学号搜索
+      dormData: [],
+      kanbanArr: [],
+      accountArr: [], // 学号搜索
+      showType:0,// 0：显示楼层 1：楼层显示房间
       floor: {
         show1: false,
         show2: false,
@@ -518,65 +499,69 @@ export default {
         show11: false,
         show12: false
       }
-    };
+    }
   },
-  created(){
+  created() {
     // this.setAccountData()
     // this.accountArr = this.searchData();
     // this.newDormData = this.searchData();
   },
   methods: {
     setAccountData() {
-      if(!this.account){
-        this.$message({message:"请输入学号",type:"success"});
-        this.accountArr = [];
+      if (!this.account) {
+        this.$message({ message: '请输入学号', type: 'success' });
+        this.accountArr = []
         return
       }
-        let arr = this.$Mock.mock({
-          'title': /[1-7]0[1-9]/,
-          'dorm|6':[
-              {
-              'account':  /(20110)\d{7}/,
-              'name':'@cname()',
-              'id|+1': 1 
-           },
-          ]
-        });
-        arr.dorm[arr.dorm.length] =  {
-             account: this.account||'21041042243',
-             name: '张志杰',
-             'id':7
-        };
+      const arr = this.$Mock.mock({
+        'title': /[1-7]0[1-9]/,
+        'dorm|6': [
+          {
+            'account': /(20110)\d{7}/,
+            'name': '@cname()',
+            'id|+1': 1
+          }
+        ]
+      });
+      arr.dorm[2] = {
+        account: this.account || '21041042243',
+        name: '张志杰',
+        id: 8,
+        active:true
+      };
+      this.searchAccount = this.account;
       this.accountArr = arr;
+      this.showType = 1;
     },
     searchData() {
-      if(!this.formInline.building|| !this.formInline.floor || !this.formInline.room ){
-        this.$message({message:"请输入完整的查询条件！",type:"success"});
+      if (!this.formInline.building || !this.formInline.floor || !this.formInline.room) {
+        this.$message({ message: '请输入完整的查询条件！', type: 'success' })
         this.newDormData = [];
         return
       }
-      let arr = this.$Mock.mock({
-          'title': this.formInline.room||/[1-6]0[1-9]/,
-          'dorm|6':[
-              {
-              'account':  /(20110)\d{7}/,
-              'name':'@cname()',
-              'id|+1': 8
-           },
-          ]
-        });
+      const arr = this.$Mock.mock({
+        'title': this.formInline.room || /[1-6]0[1-9]/,
+        'dorm|3': [
+          {
+            'account': /(20110)\d{7}/,
+            'name': '@cname()',
+            'id|+1': 9
+          }
+        ]
+      });
       this.newDormData = arr;
-      return arr;
+      this.showType = 1;
+      return arr
     },
     toShowKan(val, str) {
-      const bool = val;
+      const bool = val
 
       // val = !val
-      this[str] = !bool;
-      this.$set(this.floor, str.split(".")[1], this[str]);
+      this[str] = !bool
+      this.$set(this.floor, str.split('.')[1], this[str])
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -607,43 +592,55 @@ export default {
       background: rgba(0,128,0,.6);
     }
   }
+
 }
 
-.floor_son {
-  display: flex;
-  border: 1px solid #ab9898;
-  padding: 5px 5px;
-  height: 180px;
-  .left {
-    //   border: 1px solid black;
-    width: 100px;
-    text-align: center;
-    line-height: 30px;
-    flex-grow: 1;
-    div {
-      width: 100px;
-    }
-  }
-  .right {
-    text-align: center;
-    line-height: 74px;
+  .floor_son {
     display: flex;
-    flex-grow: 6;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-content: space-between;
-    .dorm {
-      width: 225px;
-      height: 75px;
-      border: 1px solid #ab9898;
+    border: 1px solid #cccccc;
+    padding: 5px 5px;
+    margin-bottom:15px;
+    /*height: 140px;*/
+    .left {
+      //   border: 1px solid black;
+      width: 150px;
+      text-align: center;
+      line-height: 30px;
+      /*flex-grow: 1;*/
+      /*div {*/
+        /*width: 100px;*/
+      /*}*/
+    }
+    .right {
+      text-align: center;
+      line-height: 50px;
+      display: flex;
+      flex:1;
+      /*flex-grow: 6;*/
+      flex-wrap: wrap;
+      /*justify-content: space-around;*/
+      /*align-content: space-between;*/
+      .dorm {
+        width: calc((100% - 72px)/6);
+        height: 50px;
+        margin:5px;
+        border: 1px solid #79cafe;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        &.full{
+          background:#44c06c;
+          color: #ffffff;
+        }
+      }
     }
   }
-}
-.position {
-  position: relative;
-  z-index: 1;
-}
-.floor {
-  margin-bottom: 400px;
-}
+  /*.position {*/
+  /*position: relative;*/
+  /*z-index: 1;*/
+  /*}*/
+  .floor{
+    margin:25px 0;
+    /*margin-bottom:400px;*/
+  }
 </style>

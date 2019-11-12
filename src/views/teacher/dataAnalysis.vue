@@ -8,8 +8,11 @@
 
         </el-form-item>
         <el-form-item label="班级">
-          <el-input v-model="formInline.banji" placeholder="请输入班级" />
-
+          <!--<el-input v-model="formInline.banji" placeholder="请输入班级" />-->
+          <el-select v-model="formInline.banji" placeholder="请输入班级">
+            <el-option label="金融1班" value="1">金融1班</el-option>
+            <el-option label="金融2班" value="2">金融2班</el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="姓名">
           <el-input v-model="formInline.name" placeholder="请输入姓名" />
@@ -20,15 +23,15 @@
       </el-form>
     </div>
     <div class="content">
-      <div id="chart"></div>
+      <div id="chart" />
     </div>
 
-    <div class="studentDetail" v-show="showDetail">
+    <div v-show="showDetail" class="studentDetail">
       <el-row :gutter="15">
         <el-col :span="16">
           <el-card class="box-card card-1">
             <div slot="header" class="clearfix ">
-              <span class="title">{{formInline.name}}</span>
+              <span class="title">{{ formInline.name }}</span>
             </div>
             <el-row class="infoList">
               <el-col :span="12">学号：2019221562153</el-col>
@@ -88,39 +91,59 @@
 <script>
 // import VeBar from 'v-charts/lib/histogram.common.js' // v-charts
 import echarts from 'echarts'
-require('echarts/theme/macarons'); // echarts theme
-var option = null;
+require('echarts/theme/macarons') // echarts theme
+var option = null
 export default {
   data() {
     return {
       formInline: {
         yuanxi: '经济学院',
-        banji: '金融1班',
+        banji: '1',
         name: ''
       },
-      showDetail:true,
-      chart:null,
-      dataList:{
-        list1:[
+      showDetail: false,
+      chart: null,
+      dataList: {
+        list1: [
           [45, 50, 15, 100, 100, 50, 100],
           [55, 50, 85, 0, 0, 50, 0]
         ],
-        list2:[
+        list2: [
           [30, 35, 55, 100, 100, 60, 100],
-          [70, 65, 45, 0, 0, 40, 0]
+          [70, 65, 45, 0, 0, 40, 0],
+          [35, 33, 70, 100, 100, 25, 100],
+          [65, 67, 30, 0, 0, 75, 0]
         ],
-        list3:[
+        list3: [
           [35, 64, 25, 100, 100, 60, 100],
           [65, 36, 75, 0, 0, 40, 0]
-        ],
+        ]
       }
     }
   },
-  mounted(){
+  mounted() {
     this.initChart();
   },
+  watch:{
+    'formInline.banji':function(val){
+      if(val == '1'){
+        option.series[0].data = this.dataList.list2[0];
+        option.series[1].data = this.dataList.list2[1];
+      }else{
+        option.series[0].data = this.dataList.list2[2];
+        option.series[1].data = this.dataList.list2[3];
+      }
+      this.formInline.name = '';
+      this.showDetail = false;
+      this.chart.setOption(option);
+    }
+  },
+  beforeDestroy(){
+    this.chart.dispose();
+    this.chart =null;
+  },
   methods: {
-    initChart(){
+    initChart() {
       echarts.dispose(document.getElementById('chart'));
       this.chart = echarts.init(document.getElementById('chart'));
       option = {
@@ -140,12 +163,12 @@ export default {
           containLabel: true
         },
         xAxis: {
-          type: 'value',
+          type: 'value'
           // boundaryGap: [0, 0.01]
         },
         yAxis: {
           type: 'category',
-          data: ['社会背景','教育背景','个人经历','籍贯','证件号码','联系方式','姓名']
+          data: ['社会背景', '教育背景', '个人经历', '籍贯', '证件号码', '联系方式', '姓名']
         },
         series: [
           {
@@ -158,10 +181,10 @@ export default {
                 position: 'insideRight'
               }
             },
-            itemStyle:{
-              normal:{
-                //颜色
-                color:'#57a2d7'
+            itemStyle: {
+              normal: {
+                // 颜色
+                color: '#57a2d7'
               }
             },
             data: this.dataList.list3[0]
@@ -176,37 +199,38 @@ export default {
                 position: 'insideRight'
               }
             },
-            itemStyle:{
-              normal:{
-                //颜色
-                color:'#fada73'
+            itemStyle: {
+              normal: {
+                // 颜色
+                color: '#fada73'
               }
             },
             data: this.dataList.list3[1]
-          },
+          }
         ]
-      };
-      this.chart.setOption(option);
+      }
+      this.chart.setOption(option)
     },
     onSubmit() {
-      if(this.formInline.name!=''){
+      if (this.formInline.name != '') {
         option.series[0].data = this.dataList.list3[0];
         option.series[1].data = this.dataList.list3[1];
-         this.showDetail = true;
-      }else if(this.formInline.banji!=''){
-        option.series[0].data = this.dataList.list2[0];
-        option.series[1].data = this.dataList.list2[1];
-         this.showDetail = false;
-      }else{
+        this.showDetail = true
+      } else if (this.formInline.banji != '') {
+        if(this.formInline.banji == '1'){
+          option.series[0].data = this.dataList.list2[0];
+          option.series[1].data = this.dataList.list2[1];
+        }else{
+          option.series[0].data = this.dataList.list2[2];
+          option.series[1].data = this.dataList.list2[3];
+        }
+        this.showDetail = false
+      } else {
         option.series[0].data = this.dataList.list1[0];
         option.series[1].data = this.dataList.list1[1];
-        this.showDetail = false;
-
+        this.showDetail = false
       }
       this.chart.setOption(option);
-      console.log(this.showDetail)
-      // console.log(this.chart.series[0].data)
-      // console.log(this.chart.series[1].data)
     }
   }
 }

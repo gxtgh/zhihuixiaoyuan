@@ -8,10 +8,10 @@
     <div class="filter-container">
       <el-form :inline="true" :model="formInline">
         <el-form-item label="教工号">
-          <el-input v-model="formInline.account" placeholder="请输入教工号"></el-input>
+          <el-input v-model="formInline.account" placeholder="请输入教工号" />
         </el-form-item>
         <el-form-item label="姓名">
-          <el-input v-model="formInline.name" placeholder="请输入姓名"></el-input>
+          <el-input v-model="formInline.name" placeholder="请输入姓名" />
         </el-form-item>
         <el-form-item label="入职日期">
           <div class="block">
@@ -22,7 +22,7 @@
               range-separator="至"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
-            ></el-date-picker>
+            />
           </div>
         </el-form-item>
         <el-form-item>
@@ -38,12 +38,12 @@
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <span class="titleText">
-                <i class="el-icon-time margin-right-10"></i>历史记录
+                <i class="el-icon-time margin-right-10" />历史记录
               </span>
               <el-button
                 style="float: right; padding: 3px 0;color:#303133;"
-                @click="clearTags"
                 type="text"
+                @click="clearTags"
               >清空</el-button>
             </div>
             <el-tag
@@ -52,7 +52,7 @@
               closable
               @close="handleClose(tag)"
               @click="handleClick(tag)"
-            >{{tag.name?tag.name:''}}</el-tag>
+            >{{ tag.name?tag.name:'' }}</el-tag>
           </el-card>
         </el-col>
       </el-row>
@@ -66,11 +66,11 @@
       style="width: 100%;"
       class="tableBox"
     >
-      <el-table-column label="教工号" prop="account" align="center"></el-table-column>
-      <el-table-column label="姓名" prop="name" align="center"></el-table-column>
-      <el-table-column label="联系方式" prop="phone" align="center"></el-table-column>
-      <el-table-column label="证件号" prop="idCard" align="center"></el-table-column>
-      <el-table-column label="入职时间" prop="time" align="center"></el-table-column>
+      <el-table-column label="教工号" prop="account" align="center" />
+      <el-table-column label="姓名" prop="name" align="center" />
+      <el-table-column label="联系方式" prop="phone" align="center" />
+      <el-table-column label="证件号" prop="idCard" align="center" />
+      <el-table-column label="入职时间" prop="time" align="center" />
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
           <el-button type="text">修改</el-button>
@@ -89,23 +89,23 @@
 </template>
 
 <script>
-import Pagination from "@/components/Pagination"
-import {parseTime} from '@/utils/index'
+import Pagination from '@/components/Pagination'
+import { parseTime } from '@/utils/index'
 export default {
-  name: "humanAffairs",
+  name: 'HumanAffairs',
   components: { Pagination },
   data() {
     return {
       menuIndex: 1,
       formInline: {
-        account: "",
-        name: "",
-        time:[]
+        account: '',
+        name: '',
+        time: []
       },
-      selectTime:null,
+      selectTime: null,
       tags: [
         // { name: "张三", time: "" },
-        { name: "马小云", time: [] },
+        { name: '张志杰', time: [] }
         // { name: "马云", time: "" }
       ],
       tableData: [],
@@ -119,78 +119,79 @@ export default {
         // },
       ],
       listLoading: false,
-      total: 10, //总数
+      total: 10, // 总数
       listQuery: {
         page: 1,
         limit: 12
       }
-    };
+    }
   },
-  watch:{
-    'selectTime':function(val){
-      if(val == null){
-        this.formInline.time =[];
-      }else{
+  watch: {
+    'selectTime': function(val) {
+      if (val == null) {
+        this.formInline.time = []
+      } else {
         // var time1 = parseTime(new Date(val[0]).getTime(),'{y}-{m}-{d}');
         // var time2 = parseTime(new Date(val[1]).getTime(),'{y}-{m}-{d}');
-        var time1 = new Date(val[0]).getTime();
-        var time2 = new Date(val[1]).getTime();
-        this.formInline.time.push(time1);
-        this.formInline.time.push(time2);
+        var time1 = new Date(val[0]).getTime()
+        var time2 = new Date(val[1]).getTime()
+        this.formInline.time.push(time1)
+        this.formInline.time.push(time2)
       }
     }
   },
   mounted() {
-    this.getMockData();
-    this.checkSubmit();
+    this.getMockData()
+    this.checkSubmit()
   },
   beforeDestroy() {},
   methods: {
+
     getMockData() {
       const obj = this.$Mock.mock({
-        'list|12':[
+        'list|12': [
           {
             'account': /(201100)\d{10}/,
             'name': '@cname()',
             'phone': /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/,
             'idCard': '@id()',
-            'time':' @datetime()'
+            'time': ' @datetime()'
           }
         ]
-      });
+      })
       this.dataList = obj.list
     },
     handleClick(tag) {
       // 点击标签
       // console.log(tag);
-      for (let key in tag) {
+      for (const key in tag) {
         // this.formInline[key] = tag[key]
-        this.$set(this.formInline, key, tag[key]);
+        this.$set(this.formInline, key, tag[key])
       }
     },
     clearTags() {
       // 1清空tags
-      this.tags = [];
+      this.tags = []
     },
     handleClose(tag) {
       // 删除标签
-      this.tags.splice(this.tags.indexOf(tag), 1);
+      this.tags.splice(this.tags.indexOf(tag), 1)
     },
-    //添加新标签
+    // 添加新标签
     handleInputConfirm() {
       // 添加新标签
-      let arr = [];
-      for (let val in this.formInline) {
-        arr.push(this.formInline[val]);
+      const arr = []
+      for (const val in this.formInline) {
+        arr.push(this.formInline[val])
       }
-      if (arr.some(item => item !== "")) {
-        let obj = {};
-        for (let key in this.formInline) {
-          obj[key] = this.formInline[key];
+      if (arr.some(item => item !== '')) {
+        const obj = {}
+        for (const key in this.formInline) {
+          obj[key] = this.formInline[key]
         }
         // this.tags.push(obj);
-        this.$set(this.tags, this.tags.length, obj);
-        console.log(this.tags);
+        this.$set(this.tags, this.tags.length, obj)
+        console.log(this.tags)
       }
       // this.inputVisible = false;
       // this.inputValue = '';
@@ -210,20 +211,20 @@ export default {
               String(this.formInline[key])
                 .trim()
                 .toLowerCase()
-            );
-        });
-      });
+            )
+        })
+      })
     },
     // 保存
     saveSubmit() {},
     // 获取列表
     getList() {
-      this.listLoading = true;
+      this.listLoading = true
       setTimeout(() => {
         // this.dataList = this.dataList.concat(this.dataList);
         // this.total = 100;
-        this.listLoading = false;
-      }, 1000);
+        this.listLoading = false
+      }, 1000)
       // fetchList(this.listQuery).then(response => {
       //     this.dataList = response.data.items
       //     this.total = response.data.total
@@ -237,7 +238,7 @@ export default {
       // });
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
