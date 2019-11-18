@@ -127,7 +127,7 @@
             <li v-if="!collectionList.length" class="empty">暂无收藏</li>
             <li v-for="item in collectionList">
               <i :class="item.collection?'el-icon-star-on color-red':'el-icon-star-off'" class="font-size-25" @click="changeCollection(item)" />
-              <span class="title" :title="item.title">{{item.title}}</span>
+              <span class="title" :title="item.title">{{ item.title }}</span>
             </li>
           </ul>
         </el-card>
@@ -207,11 +207,11 @@ export default {
       }
     },
     // 收藏列表
-    collectionList(){
-      var arr = this.transactionData.concat(this.applyData);
-      return arr.filter(function(item, i, arr){
-          return item.collection;
-      });
+    collectionList() {
+      var arr = this.transactionData.concat(this.applyData)
+      return arr.filter(function(item, i, arr) {
+        return item.collection
+      })
     }
   },
   watch: {

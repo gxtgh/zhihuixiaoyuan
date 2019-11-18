@@ -41,7 +41,7 @@
           <Kanban
             :key="1"
             :list="accountArr.dorm"
-            :accountValue="searchAccount"
+            :account-value="searchAccount"
             :group="group"
             class="kanban todo"
             :header-text="accountArr.title"
@@ -51,7 +51,7 @@
           <Kanban
             :key="2"
             :list="newDormData.dorm"
-            :accountValue="searchAccount"
+            :account-value="searchAccount"
             :group="group"
             class="kanban todo header-green"
             :header-text="newDormData.title"
@@ -59,7 +59,7 @@
         </el-col>
       </el-row>
     </div>
-    <div class="floor" v-show="showType == 0">
+    <div v-show="showType == 0" class="floor">
       <div class="floor_son">
         <div class="left">
           <h3>7F</h3>
@@ -67,50 +67,50 @@
           <div> <span>空余床位:8</span> </div>
         </div>
         <div class="right">
-          <div class="dorm full" >
+          <div class="dorm full">
             <div class="num">701</div>
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">702</div>
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">703</div>
 
           </div>
-          <div class="dorm full" >
+          <div class="dorm full">
             <div class="num">704</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">705</div>
 
           </div>
-          <div class="dorm full" >
+          <div class="dorm full">
             <div class="num">706</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">707</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">708</div>
 
           </div>
-          <div class="dorm full" >
+          <div class="dorm full">
             <div class="num">709</div>
 
           </div>
           <!--<div class="dorm" >-->
-            <!--<div class="num">710</div>-->
+          <!--<div class="num">710</div>-->
 
           <!--</div>-->
           <!--<div class="dorm" >-->
-            <!--<div class="num">711</div>-->
+          <!--<div class="num">711</div>-->
 
           <!--</div>-->
           <!--<div class="dorm" >-->
-            <!--<div class="num">712</div>-->
+          <!--<div class="num">712</div>-->
 
           <!--</div>-->
 
@@ -123,52 +123,52 @@
           <div> <span>空余床位:4</span> </div>
         </div>
         <div class="right">
-          <div class="dorm full" >
+          <div class="dorm full">
             <div class="num">601</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">602</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">603</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">604</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">605</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">606</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">607</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">608</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">609</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">610</div>
 
           </div>
           <!--<div class="dorm" >-->
-            <!--<div class="num">611</div>-->
+          <!--<div class="num">611</div>-->
 
           <!--</div>-->
           <!--<div class="dorm" >-->
-            <!--<div class="num">612</div>-->
+          <!--<div class="num">612</div>-->
 
           <!--</div>-->
 
@@ -181,51 +181,51 @@
           <div> <span>空余床位:4</span> </div>
         </div>
         <div class="right">
-          <div class="dorm full" >
+          <div class="dorm full">
             <div class="num">501</div>
 
           </div>
-          <div class="dorm full" >
+          <div class="dorm full">
             <div class="num">502</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">503</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">504</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">505</div>
 
           </div>
-          <div class="dorm full" >
+          <div class="dorm full">
             <div class="num">506</div>
 
           </div>
-          <div class="dorm full" >
+          <div class="dorm full">
             <div class="num">507</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">508</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">509</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">510</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">511</div>
 
           </div>
-          <div class="dorm" >
+          <div class="dorm">
             <div class="num">512</div>
 
           </div>
@@ -233,232 +233,232 @@
         </div>
       </div>
       <div class="floor_son">
-      <div class="left">
-        <h3>4F</h3>
-        <div> <span>已入驻:42</span> </div>
-        <div> <span>空余床位:4</span> </div>
+        <div class="left">
+          <h3>4F</h3>
+          <div> <span>已入驻:42</span> </div>
+          <div> <span>空余床位:4</span> </div>
+        </div>
+        <div class="right">
+          <div class="dorm full">
+            <div class="num">401</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">402</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">403</div>
+
+          </div>
+          <div class="dorm full">
+            <div class="num">404</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">405</div>
+
+          </div>
+          <div class="dorm full">
+            <div class="num">406</div>
+
+          </div>
+          <div class="dorm full">
+            <div class="num">407</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">408</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">409</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">410</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">411</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">412</div>
+
+          </div>
+
+        </div>
+      </div> <div class="floor_son">
+        <div class="left">
+          <h3>3F</h3>
+          <div> <span>已入驻:42</span> </div>
+          <div> <span>空余床位:4</span> </div>
+        </div>
+        <div class="right">
+          <div class="dorm ">
+            <div class="num">301</div>
+
+          </div>
+          <div class="dorm full">
+            <div class="num">302</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">303</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">304</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">305</div>
+
+          </div>
+          <div class="dorm full">
+            <div class="num">306</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">307</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">308</div>
+
+          </div>
+          <div class="dorm full">
+            <div class="num">309</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">310</div>
+
+          </div>
+          <div class="dorm full">
+            <div class="num">311</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">312</div>
+
+          </div>
+
+        </div>
+      </div> <div class="floor_son">
+        <div class="left">
+          <h3>2F</h3>
+          <div> <span>已入驻:42</span> </div>
+          <div> <span>空余床位:4</span> </div>
+        </div>
+        <div class="right">
+          <div class="dorm full">
+            <div class="num">201</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">202</div>
+
+          </div>
+          <div class="dorm full">
+            <div class="num">203</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">204</div>
+
+          </div>
+          <div class="dorm full">
+            <div class="num">205</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">206</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">207</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">208</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num full">209</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">210</div>
+
+          </div>
+          <div class="dorm full">
+            <div class="num">211</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">212</div>
+
+          </div>
+
+        </div>
+      </div> <div class="floor_son">
+        <div class="left">
+          <h3>1F</h3>
+          <div> <span>已入驻:42</span> </div>
+          <div> <span>空余床位:4</span> </div>
+        </div>
+        <div class="right">
+          <div class="dorm full">
+            <div class="num">101</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">102</div>
+
+          </div>
+          <div class="dorm full">
+            <div class="num">103</div>
+
+          </div>
+          <div class="dorm full">
+            <div class="num">104</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">105</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">106</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">107</div>
+
+          </div>
+          <div class="dorm full">
+            <div class="num">108</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">109</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">110</div>
+
+          </div>
+          <div class="dorm">
+            <div class="num">111</div>
+
+          </div>
+          <div class="dorm full">
+            <div class="num">112</div>
+          </div>
+        </div>
       </div>
-      <div class="right">
-        <div class="dorm full" >
-          <div class="num">401</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">402</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">403</div>
-
-        </div>
-        <div class="dorm full" >
-          <div class="num">404</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">405</div>
-
-        </div>
-        <div class="dorm full" >
-          <div class="num">406</div>
-
-        </div>
-        <div class="dorm full" >
-          <div class="num">407</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">408</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">409</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">410</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">411</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">412</div>
-
-        </div>
-
-      </div>
-    </div> <div class="floor_son">
-      <div class="left">
-        <h3>3F</h3>
-        <div> <span>已入驻:42</span> </div>
-        <div> <span>空余床位:4</span> </div>
-      </div>
-      <div class="right">
-        <div class="dorm " >
-          <div class="num">301</div>
-
-        </div>
-        <div class="dorm full" >
-          <div class="num">302</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">303</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">304</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">305</div>
-
-        </div>
-        <div class="dorm full" >
-          <div class="num">306</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">307</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">308</div>
-
-        </div>
-        <div class="dorm full" >
-          <div class="num">309</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">310</div>
-
-        </div>
-        <div class="dorm full" >
-          <div class="num">311</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">312</div>
-
-        </div>
-
-      </div>
-    </div> <div class="floor_son">
-      <div class="left">
-        <h3>2F</h3>
-        <div> <span>已入驻:42</span> </div>
-        <div> <span>空余床位:4</span> </div>
-      </div>
-      <div class="right">
-        <div class="dorm full" >
-          <div class="num">201</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">202</div>
-
-        </div>
-        <div class="dorm full" >
-          <div class="num">203</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">204</div>
-
-        </div>
-        <div class="dorm full" >
-          <div class="num">205</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">206</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">207</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">208</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num full">209</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">210</div>
-
-        </div>
-        <div class="dorm full" >
-          <div class="num">211</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">212</div>
-
-        </div>
-
-      </div>
-    </div> <div class="floor_son">
-      <div class="left">
-        <h3>1F</h3>
-        <div> <span>已入驻:42</span> </div>
-        <div> <span>空余床位:4</span> </div>
-      </div>
-      <div class="right">
-        <div class="dorm full" >
-          <div class="num">101</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">102</div>
-
-        </div>
-        <div class="dorm full" >
-          <div class="num">103</div>
-
-        </div>
-        <div class="dorm full" >
-          <div class="num">104</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">105</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">106</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">107</div>
-
-        </div>
-        <div class="dorm full" >
-          <div class="num">108</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">109</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">110</div>
-
-        </div>
-        <div class="dorm" >
-          <div class="num">111</div>
-
-        </div>
-        <div class="dorm full" >
-          <div class="num">112</div>
-        </div>
-      </div>
-    </div>
     </div>
   </div>
 </template>
@@ -478,13 +478,13 @@ export default {
         room: ''
       },
       account: '201909877001', // 搜索框学号
-      searchAccount:"",//查询的学号
+      searchAccount: '', // 查询的学号
       group: 'name',
       newDormData: [],
       dormData: [],
       kanbanArr: [],
       accountArr: [], // 学号搜索
-      showType:0,// 0：显示楼层 1：楼层显示房间
+      showType: 0, // 0：显示楼层 1：楼层显示房间
       floor: {
         show1: false,
         show2: false,
@@ -509,7 +509,7 @@ export default {
   methods: {
     setAccountData() {
       if (!this.account) {
-        this.$message({ message: '请输入学号', type: 'success' });
+        this.$message({ message: '请输入学号', type: 'success' })
         this.accountArr = []
         return
       }
@@ -522,21 +522,21 @@ export default {
             'id|+1': 1
           }
         ]
-      });
+      })
       arr.dorm[2] = {
         account: this.account || '21041042243',
         name: '张志杰',
         id: 8,
-        active:true
-      };
-      this.searchAccount = this.account;
-      this.accountArr = arr;
-      this.showType = 1;
+        active: true
+      }
+      this.searchAccount = this.account
+      this.accountArr = arr
+      this.showType = 1
     },
     searchData() {
       if (!this.formInline.building || !this.formInline.floor || !this.formInline.room) {
         this.$message({ message: '请输入完整的查询条件！', type: 'success' })
-        this.newDormData = [];
+        this.newDormData = []
         return
       }
       const arr = this.$Mock.mock({
@@ -548,9 +548,9 @@ export default {
             'id|+1': 9
           }
         ]
-      });
-      this.newDormData = arr;
-      this.showType = 1;
+      })
+      this.newDormData = arr
+      this.showType = 1
       return arr
     },
     toShowKan(val, str) {

@@ -121,31 +121,31 @@ export default {
       }
     }
   },
-  mounted() {
-    this.initChart();
-  },
-  watch:{
-    'formInline.banji':function(val){
-      if(val == '1'){
-        option.series[0].data = this.dataList.list2[0];
-        option.series[1].data = this.dataList.list2[1];
-      }else{
-        option.series[0].data = this.dataList.list2[2];
-        option.series[1].data = this.dataList.list2[3];
+  watch: {
+    'formInline.banji': function(val) {
+      if (val == '1') {
+        option.series[0].data = this.dataList.list2[0]
+        option.series[1].data = this.dataList.list2[1]
+      } else {
+        option.series[0].data = this.dataList.list2[2]
+        option.series[1].data = this.dataList.list2[3]
       }
-      this.formInline.name = '';
-      this.showDetail = false;
-      this.chart.setOption(option);
+      this.formInline.name = ''
+      this.showDetail = false
+      this.chart.setOption(option)
     }
   },
-  beforeDestroy(){
-    this.chart.dispose();
-    this.chart =null;
+  mounted() {
+    this.initChart()
+  },
+  beforeDestroy() {
+    this.chart.dispose()
+    this.chart = null
   },
   methods: {
     initChart() {
-      echarts.dispose(document.getElementById('chart'));
-      this.chart = echarts.init(document.getElementById('chart'));
+      echarts.dispose(document.getElementById('chart'))
+      this.chart = echarts.init(document.getElementById('chart'))
       option = {
         tooltip: {
           trigger: 'axis',
@@ -213,24 +213,24 @@ export default {
     },
     onSubmit() {
       if (this.formInline.name != '') {
-        option.series[0].data = this.dataList.list3[0];
-        option.series[1].data = this.dataList.list3[1];
+        option.series[0].data = this.dataList.list3[0]
+        option.series[1].data = this.dataList.list3[1]
         this.showDetail = true
       } else if (this.formInline.banji != '') {
-        if(this.formInline.banji == '1'){
-          option.series[0].data = this.dataList.list2[0];
-          option.series[1].data = this.dataList.list2[1];
-        }else{
-          option.series[0].data = this.dataList.list2[2];
-          option.series[1].data = this.dataList.list2[3];
+        if (this.formInline.banji == '1') {
+          option.series[0].data = this.dataList.list2[0]
+          option.series[1].data = this.dataList.list2[1]
+        } else {
+          option.series[0].data = this.dataList.list2[2]
+          option.series[1].data = this.dataList.list2[3]
         }
         this.showDetail = false
       } else {
-        option.series[0].data = this.dataList.list1[0];
-        option.series[1].data = this.dataList.list1[1];
+        option.series[0].data = this.dataList.list1[0]
+        option.series[1].data = this.dataList.list1[1]
         this.showDetail = false
       }
-      this.chart.setOption(option);
+      this.chart.setOption(option)
     }
   }
 }

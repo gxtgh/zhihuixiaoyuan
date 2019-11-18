@@ -57,16 +57,16 @@
             </el-form-item>
             <el-form-item v-show="role.type == 2">
               <el-tree
-                      ref="tree1"
-                      :data="departmentData"
-                      :props="defaultProps1"
-                      node-key="path"
-                      :highlight-current="true"
-                      :default-expand-all="true"
-                      :show-checkbox="false"
-                      :default-checked-keys="[selectDepartData?selectDepartData.id:'']"
-                      class="permission-tree-1"
-                      @node-click="nodeClick"
+                ref="tree1"
+                :data="departmentData"
+                :props="defaultProps1"
+                node-key="path"
+                :highlight-current="true"
+                :default-expand-all="true"
+                :show-checkbox="false"
+                :default-checked-keys="[selectDepartData?selectDepartData.id:'']"
+                class="permission-tree-1"
+                @node-click="nodeClick"
               />
             </el-form-item>
           </el-col>
@@ -132,9 +132,9 @@ export default {
         children: 'children',
         label: 'title'
       },
-      checkStrictly1:false,
+      checkStrictly1: false,
       // defaultPropsData1:[1,2,3,4,5,6,7,8,9,10],
-      selectDepartData:'',
+      selectDepartData: '',
       departmentData: [
         {
           id: 1,
@@ -143,61 +143,61 @@ export default {
           disabled: true,
           children: [
             {
-              id:2,
+              id: 2,
               path: '/tuanwei',
               title: '团委',
               disabled: true,
               children: [
                 {
-                  id:3,
+                  id: 3,
                   path: '/tuanwei/xuanchuanbu',
                   title: '宣传部',
                   disabled: true,
                   children: [
                     {
-                      id:11,
+                      id: 11,
                       path: '',
                       title: '张玲'
                     },
                     {
-                      id:12,
+                      id: 12,
                       path: '',
                       title: '陆时杰'
                     }]
                 },
                 {
-                  id:4,
+                  id: 4,
                   path: '/tuanwei/shijianbu',
                   title: '实践部',
                   disabled: true,
                   children: [
                     {
-                      id:13,
+                      id: 13,
                       path: '',
                       title: '韩月红'
                     }]
 
                 },
                 {
-                  id:5,
+                  id: 5,
                   path: '/tuanwei/wentibu',
                   title: '文体部',
                   disabled: true,
                   children: [
                     {
-                      id:14,
+                      id: 14,
                       path: '',
                       title: '刘中玲'
                     }]
                 },
                 {
-                  id:6,
+                  id: 6,
                   path: '/tuanwei/xueshengshetuan',
                   title: '学生社团',
                   disabled: true,
                   children: [
                     {
-                      id:15,
+                      id: 15,
                       path: '',
                       title: '王月丽'
                     }]
@@ -205,59 +205,59 @@ export default {
               ]
             },
             {
-              id:7,
+              id: 7,
               path: '/zhaoshengban',
               title: '招生办',
               disabled: true,
-               children: [
-                    {
-                      id:16,
-                      path: '',
-                      title: '韩月红'
-                    }]
+              children: [
+                {
+                  id: 16,
+                  path: '',
+                  title: '韩月红'
+                }]
             },
             {
-              id:8,
+              id: 8,
               path: '/jiaoyuguanlike',
               title: '教育管理科',
               disabled: true,
-               children: [
-                    {
-                      id:17,
-                      path: '',
-                      title: '全美娟'
-                    }]
+              children: [
+                {
+                  id: 17,
+                  path: '',
+                  title: '全美娟'
+                }]
             },
             {
-              id:9,
+              id: 9,
               path: '/xueshengzizhuzhongxin',
               title: '学生资助中心',
               disabled: true,
-               children: [
-                    {
-                      id:18,
-                      path: '',
-                      title: '高令和'
-                    }]
+              children: [
+                {
+                  id: 18,
+                  path: '',
+                  title: '高令和'
+                }]
             },
             {
-              id:10,
+              id: 10,
               path: '/xinlijiankangzhongxin',
               title: '心理健康中心',
               disabled: true,
-               children: [
-                    {
-                      id:19,
-                      path: '',
-                      title: '黄幻静'
-                    }]
+              children: [
+                {
+                  id: 19,
+                  path: '',
+                  title: '黄幻静'
+                }]
             }
           ]
         }
       ],
-      defaultProps1:{
-        children:'children',
-        label:'title'
+      defaultProps1: {
+        children: 'children',
+        label: 'title'
       }
     }
   },
@@ -273,10 +273,10 @@ export default {
       // this.role.name = '';
       // this.role.description = '';
     },
-    selectDepartData(val){
-      this.role.id = val.id;
-      this.role.name = val.title;
-      this.role.description = val.title;
+    selectDepartData(val) {
+      this.role.id = val.id
+      this.role.name = val.title
+      this.role.description = val.title
     }
   },
   created() {
@@ -291,8 +291,8 @@ export default {
       if (this.name == '') {
         this.rolesList = res.data
       } else {
-        var arr = [];
-        var __this = this;
+        var arr = []
+        var __this = this
         res.data.forEach(function(item) {
           if (item.name.indexOf(__this.name) > -1) {
             arr.push(item)
@@ -339,9 +339,9 @@ export default {
       // console.log(res)
     },
     // 学校部门人员的选择
-    nodeClick(data,node,self) {
-      if(data.children == undefined){
-        this.selectDepartData = data;
+    nodeClick(data, node, self) {
+      if (data.children == undefined) {
+        this.selectDepartData = data
       }
     },
 
@@ -383,7 +383,7 @@ export default {
             data = [...data, ...temp]
           }
         }
-      });
+      })
       return data
     },
     handleAddRole() {
@@ -398,10 +398,10 @@ export default {
       this.dialogType = 'edit'
       this.dialogVisible = true
       this.checkStrictly = true
-      this.role = deepClone(scope.row);
+      this.role = deepClone(scope.row)
       console.log(this.role)
       this.$nextTick(() => {
-        const routes = this.generateRoutes(this.role.routes);
+        const routes = this.generateRoutes(this.role.routes)
         this.$refs.tree.setCheckedNodes(this.generateArr(routes))
         // set checked state of a node not affects its father and child nodes
         this.checkStrictly = false
@@ -453,7 +453,7 @@ export default {
           }
         }
       } else {
-        const { data } = await addRole(this.role);
+        const { data } = await addRole(this.role)
         this.role.key = this.rolesList.length + 1
         this.role.time = parseTime(new Date().getTime())
         this.rolesList.push(this.role)

@@ -6,7 +6,7 @@
     <div v-for="(element,i) in list" :key="element.id" class="board-item" :class="{'empty':!element.name,'actived':accountValue == element.account}">
       <div class="left">{{ i+1+". " }}</div>
       <div class="right info">
-        <p>{{ element.account }}{{accountValue}}</p>
+        <p>{{ element.account }}{{ accountValue }}</p>
         <p>{{ element.name ?element.name:"空" }}</p>
       </div>
     </div>
@@ -37,21 +37,21 @@ export default {
       }
     }
   },
-  mounted(){
-    console.log(this.list)
-  },
   data() {
     return {
       currentData: ''
     }
   },
   watch: {
-    accountValue(val){
+    accountValue(val) {
       console.log(val)
     },
-    list(val){
+    list(val) {
       console.log(val)
     }
+  },
+  mounted() {
+    console.log(this.list)
   },
   methods: {
     // clickItem(params){

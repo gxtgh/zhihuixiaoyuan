@@ -9,24 +9,23 @@ import getPageTitle from '@/utils/get-page-title'
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['/login', '/home', '/auth-redirect'] // no redirect whitelist
-var state = false;
+var state = false
 router.beforeEach(async(to, from, next) => {
   // start progress bar
-  NProgress.start();
-
+  NProgress.start()
 
   // set page title
-  document.title = getPageTitle(to.meta.title);
+  document.title = getPageTitle(to.meta.title)
 
-  var endTime =new Date('2019-12-12').getTime();
-  var currentTime = new Date().getTime();
-  if(currentTime-endTime>=0 && !state){
-    state = true;
-    next({path:'/404'});
+  var endTime = new Date('2019-12-12').getTime()
+  var currentTime = new Date().getTime()
+  if (currentTime - endTime >= 0 && !state) {
+    state = true
+    next({ path: '/404' })
     return
   }
   // determine whether the user has logged in
-  const hasToken = getToken();
+  const hasToken = getToken()
 
   if (hasToken) {
     if (to.path === '/login') {
@@ -70,7 +69,7 @@ router.beforeEach(async(to, from, next) => {
       next()
     } else {
       // other pages that do not have permission to access are redirected to the login page.
-      next(`/login?redirect=${to.path}`);
+      next(`/login?redirect=${to.path}`)
       NProgress.done()
     }
   }
@@ -78,6 +77,6 @@ router.beforeEach(async(to, from, next) => {
 
 router.afterEach(() => {
   // finish progress bar
-  console.log("结束")
+  console.log('结束')
   NProgress.done()
 })

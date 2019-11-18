@@ -33,7 +33,7 @@ export default {
     accountValue: {
       type: String,
       default() {
-        return ""
+        return ''
       }
     },
     headerText: {

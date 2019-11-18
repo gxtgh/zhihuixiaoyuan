@@ -140,7 +140,7 @@
 
 <script>
 import echarts from 'echarts'
-require('echarts/theme/macarons'); // echarts theme
+require('echarts/theme/macarons') // echarts theme
 // import resize from './mixins/resize'
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -184,9 +184,9 @@ export default {
     }
   },
   mounted() {
-    this.initChart1();
-    this.initChart2();
-    this.checkSubmit();
+    this.initChart1()
+    this.initChart2()
+    this.checkSubmit()
     // this.$nextTick(() => {
     //     this.initChart()
     // })
@@ -198,9 +198,9 @@ export default {
     if (!this.chart2 && !this.chart1) {
       return
     }
-    this.chart1.dispose();
-    this.chart1 = null;
-    this.chart2.dispose();
+    this.chart1.dispose()
+    this.chart1 = null
+    this.chart2.dispose()
     this.chart2 = null
   },
   methods: {
@@ -216,8 +216,8 @@ export default {
             address: '@province()'
           }
         ]
-      });
-      this.dataList = obj.list;
+      })
+      this.dataList = obj.list
       // console.log(this.dataList)
     },
     handleClick(tag) { // 点击标签
@@ -232,7 +232,7 @@ export default {
       this.tags = []
     },
     intoNewPage(params) { // 跳转新页面
-      this.$intoNewPage(params);
+      this.$intoNewPage(params)
     },
     handleInputConfirm() { // 添加新标签
       const arr = []
@@ -373,7 +373,7 @@ export default {
     saveSubmit() {},
     // 获取列表
     getList() {
-      this.listLoading = true;
+      this.listLoading = true
       setTimeout(() => {
         // this.dataList = this.dataList.concat(this.dataList);
         // this.total = 100;

@@ -301,15 +301,15 @@ export default {
     // 监听模态框的显示，对selectList处理
     dialogVisible(newValue) {
       if (newValue) {
-        this.allSelectList = JSON.parse(JSON.stringify(this.currentType.list));
-        var __this = this;
+        this.allSelectList = JSON.parse(JSON.stringify(this.currentType.list))
+        var __this = this
         this.allSelectList.forEach(function(item) {
           if (item.status) {
             __this.selectList.push(item)
           }
         })
       } else {
-        this.selectList = [];
+        this.selectList = []
         this.allSelectList = []
       }
     },
@@ -330,7 +330,7 @@ export default {
   },
   methods: {
     async logout() {
-      await this.$store.dispatch('user/logout');
+      await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     },
     // 点击事务
